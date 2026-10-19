@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudio Creativo ID | Ingeniería Digital, PLCs y Soluciones Tecnológicas</title>
+
+  <meta name="description" content="Despacho de ingeniería y creatividad digital: desarrollo web, software, automatización industrial, programación de PLCs, mecánica digital, redes y ciberseguridad.">
+  
+  <!-- Favicon SVG con fallback -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
+ 
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Fondo dinámico con gradientes -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Barra de Navegación -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand">
+        <img src="favicon.svg" alt="Isotipo Estudio Creativo ID" class="brand-icon">
+        <span class="brand-text">Estudio Creativo <strong class="brand-accent">ID</strong></span>
+      </a>
+      
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#ingenieria" class="nav-link">Capacidades</a></li>
+          <li><a href="#lenguajes" class="nav-link">Stack Tecnológico</a></li>
+          <li><a href="#nosotros" class="nav-link">Filosofía</a></li>
+          <li><a href="#contacto" class="btn btn-outline nav-btn">Iniciar Proyecto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge">
+            <span class="pulse-dot"></span> Ingeniería & Creatividad Digital
+          </div>
+          <h1 class="hero-title">
+            Arquitectura de software, <span class="gradient-text">automatización PLC</span> y mecánica digital.
+          </h1>
+          <p class="hero-subtitle">
+            Conectamos el mundo físico industrial con el entorno digital: desde programación de controladores lógicos (PLCs) y telemetría hasta plataformas web, aplicaciones de escritorio y ciberseguridad.
+          </p>
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary">Cotizar Solución</a>
+            <a href="#servicios" class="btn btn-secondary">Explorar Servicios</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">+10</span>
+              <span class="stat-label">Lenguajes y Entornos</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">OT / IT</span>
+              <span class="stat-label">Convergencia Industrial</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Soluciones a Medida</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal interactiva animada -->
+        <div class="hero-visual">
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title">estudio-creativo-id ~ industrial-core</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+              <p><span class="term-prompt">$</span> plc-bridge --interface=modbus-tcp --baud=115200</p>
+              <p class="term-log">&gt; Escaneando módulos I/O y lazos de control...</p>
+              <p class="term-log">&gt; PLC Rack [Siemens / Delta / Omron]: Conectado</p>
+              <p class="term-code"><span class="term-keyword">PROGRAM</span> <span class="term-var">CicloMecanicaDigital</span></p>
+              <p class="term-code">&nbsp;&nbsp;<span class="term-keyword">VAR</span> entradaSensor <span class="term-keyword">AT</span> %IX0.0 : <span class="term-val">BOOL</span>; <span class="term-keyword">END_VAR</span></p>
+              <p class="term-code">&nbsp;&nbsp;<span class="term-fn">IF</span> entradaSensor <span class="term-fn">THEN</span></p>
+              <p class="term-code">&nbsp;&nbsp;&nbsp;&nbsp;Actuador_PID.Enable := <span class="term-val">TRUE</span>;</p>
+              <p class="term-code">&nbsp;&nbsp;<span class="term-fn">END_IF</span>;</p>
+              <p><span class="term-prompt">$</span> <span class="typewriter" id="typewriter"></span><span class="cursor">|</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios Section con Imágenes -->
+    <section class="section services" id="servicios">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Nuestras Especialidades</span>
+          <h2 class="section-title">Ecosistema Integral de Soluciones</h2>
+          <p class="section-desc">Unimos la mecánica y electrónica industrial con la robustez del desarrollo de software contemporáneo.</p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Card 1: Automatización PLC y Mecánica Digital -->
+          <article class="service-card featured-service">
+            <div class="card-media">
+              <img src="assets/img/plc-automation.jpeg" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">🎛️</div>
+              <h3 class="card-title">Automatización PLC & Mecánica Digital</h3>
+              <p class="card-text">
+                Programación de controladores lógicos programables (PLC), control secuencial, actuadores neumáticos/eléctricos e instrumentación para maquinaria y líneas de proceso.
+              </p>
+              <ul class="card-list">
+                <li>Lógica Ladder (LD), Texto Estructurado (ST) y Diagrama de Bloques (FBD)</li>
+                <li>Integración de interfaces HMI y sistemas SCADA locales</li>
+                <li>Protocolos industriales: Modbus TCP/RTU, OPC-UA, MQTT, PROFINET</li>
+                <li>Lazos de control PID y telemetría en tiempo real</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Card 2: Desarrollo Web -->
+          <article class="service-card">
+            <div class="card-media">
+              <img src="assets/img/web-pwa.jpg" 
+                   alt="Código en pantalla y arquitectura web moderna" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">🌐</div>
+              <h3 class="card-title">Desarrollo Web & PWAs</h3>
+              <p class="card-text">
+                Portales institucionales, tableros de control web (dashboards IoT/SCADA), plataformas SaaS y Progressive Web Apps optimizadas para velocidad y respuesta táctil fluida.
+              </p>
+              <ul class="card-list">
+                <li>Dashboards y monitoreo de procesos vía WebSockets</li>
+                <li>SPA / SSR con arquitecturas modernas</li>
+                <li>Diseño responsivo optimizado para planta y oficina</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Card 3: Apps Móviles y Escritorio -->
+          <article class="service-card">
+            <div class="card-media">
+              <img src="assets/img/apps-multiplataform.jpg" 
+                   alt="Interfaz de aplicación móvil y tablet" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">📱</div>
+              <h3 class="card-title">Apps Móviles & Escritorio</h3>
+              <p class="card-text">
+                Software de escritorio para control local de equipos y aplicaciones móviles para inspección, supervisión técnica y captura de datos en campo.
+              </p>
+              <ul class="card-list">
+                <li>Software de escritorio para adquisición de datos (PyQt, C#)</li>
+                <li>Aplicaciones móviles multiplataforma (Android / iOS)</li>
+                <li>Modo offline-first con sincronización automática</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Card 4: Automatización Digital & Scripts -->
+          <article class="service-card">
+            <div class="card-media">
+              <img src="assets/img/scripts-automation.jpg" 
+                   alt="Microcontrolador y circuitos electrónicos integrados" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">⚡</div>
+              <h3 class="card-title">Automatización Digital & Scripts</h3>
+              <p class="card-text">
+                Optimización de flujos operativos mediante microservicios, bots de procesamiento, consolidación de bases de datos y generación automatizada de reportes normativos.
+              </p>
+              <ul class="card-list">
+                <li>Generación automática de reportes técnicos y certificados</li>
+                <li>Pipelines de procesamiento de datos y scripts en Python</li>
+                <li>Integración de Webhooks y APIs empresariales</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Card 5: Redes y Ciberseguridad -->
+          <article class="service-card">
+            <div class="card-media">
+              <img src="assets/img/networks-security.jpg" 
+                   alt="Racks de servidores y centro de datos con cableado de red" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">🛡️</div>
+              <h3 class="card-title">Redes, Comunicación & Seguridad</h3>
+              <p class="card-text">
+                Infraestructura de telecomunicaciones, segmentación de redes industriales (VLANs OT/IT), cortafuegos perimetrales, túneles VPN seguros y prevención de intrusiones.
+              </p>
+              <ul class="card-list">
+                <li>Aislamiento de red entre planta (OT) y administración (IT)</li>
+                <li>Configuración de VPNs para acceso remoto a PLCs</li>
+                <li>Auditorías de puertos, cifrado y políticas de acceso</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Card 6: Ingeniería Multi-Lenguaje -->
+          <article class="service-card">
+            <div class="card-media">
+              <img src="assets/img/custom-code.jpg" 
+                   alt="Flujo de datos y programación de código binario" 
+                   class="card-img" 
+                   loading="lazy">
+              <div class="media-overlay"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon">💻</div>
+              <h3 class="card-title">Ingeniería Multi-Lenguaje & APIs</h3>
+              <p class="card-text">
+                Desarrollo de controladores de bajo nivel, pasarelas de enlace (gateways), refactorización de código legado y conexión entre bases de datos relacionales y hardware.
+              </p>
+              <ul class="card-list">
+                <li>Python, C/C++, JavaScript/TypeScript, Structured Text</li>
+                <li>APIs RESTful, brokers MQTT y sockets bidireccionales</li>
+                <li>Modelado y gestión de bases de datos PostgreSQL / SQLite</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capacidades / Ingeniería Section (#ingenieria) -->
+    <section class="section capabilities" id="ingenieria">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Capacidades Técnicas</span>
+          <h2 class="section-title">Alcance Operativo y de Ingeniería</h2>
+          <p class="section-desc">Metodologías de ingeniería aplicadas a sistemas embebidos, automatización física y plataformas digitales.</p>
+        </div>
+
+        <div class="capabilities-grid">
+          <div class="cap-card">
+            <span class="cap-num">01</span>
+            <h3>Arquitectura de Sistemas</h3>
+            <p>Modelado de flujos de datos, bases de datos relacionales/NoSQL y particionamiento de microservicios para alta concurrencia.</p>
+          </div>
+
+          <div class="cap-card">
+            <span class="cap-num">02</span>
+            <h3>Integración de Hardware & OT</h3>
+            <p>Cableado de señales analógicas/digitales (4-20mA, 0-10V), montaje de racks PLC, relevadores y comunicación con drivers de potencia.</p>
+          </div>
+
+          <div class="cap-card">
+            <span class="cap-num">03</span>
+            <h3>Pruebas, Simulación & FAT/SAT</h3>
+            <p>Protocolos de validación en banco de pruebas antes de puesta en marcha, simulación de lazos de control y testing unitario de software.</p>
+          </div>
+
+          <div class="cap-card">
+            <span class="cap-num">04</span>
+            <h3>Telemetría & Conectividad Segura</h3>
+            <p>Extracción de registros industriales vía Modbus/OPC-UA hacia dashboards de monitoreo en tiempo real mediante WebSockets o MQTT.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack Tecnológico -->
+    <section class="section stack-section" id="lenguajes">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Versatilidad Técnica</span>
+          <h2 class="section-title">Ecosistemas que Dominamos</h2>
+          <p class="section-desc">Desde el microcontrolador y el rack PLC hasta el servidor en la nube y la interfaz de usuario.</p>
+        </div>
+
+        <div class="tech-pills">
+          <span class="tech-pill highlight-pill">PLCs (Siemens / Delta / Omron / AB)</span>
+          <span class="tech-pill highlight-pill">Ladder &amp; Structured Text (IEC 61131-3)</span>
+          <span class="tech-pill highlight-pill">Modbus TCP/RTU &amp; OPC-UA</span>
+          <span class="tech-pill highlight-pill">SCADA &amp; HMIs</span>
+          <span class="tech-pill">Python (PyQt, Automation, Data)</span>
+          <span class="tech-pill">JavaScript / TypeScript</span>
+          <span class="tech-pill">Node.js &amp; WebSockets</span>
+          <span class="tech-pill">HTML5 / CSS3 Moderno</span>
+          <span class="tech-pill">C / C++ (Embebidos)</span>
+          <span class="tech-pill">PostgreSQL &amp; SQLite</span>
+          <span class="tech-pill">Linux Industrial &amp; Redes OT/IT</span>
+          <span class="tech-pill">Ciberseguridad y VPNs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filosofía -->
+    <section class="section philosophy" id="nosotros">
+      <div class="container philosophy-box">
+        <div class="philosophy-text">
+          <span class="section-tag">Nuestra Metodología</span>
+          <h2>Convergencia OT + IT: Hardware y Código en Armonía</h2>
+          <p>
+            La mayoría de las agencias de software no comprenden el funcionamiento de un contactor, un sensor inductivo o un lazo 4-20 mA. Por otro lado, los técnicos de automatización tradicional rara vez dominan la seguridad de redes y el desarrollo web moderno. <strong>Estudio Creativo ID</strong> une ambos mundos con soluciones integrales probadas en campo.
+          </p>
+          <div class="philosophy-points">
+            <div class="point">
+              <strong>1. Precisión Mecánica y Secuencial:</strong> Lógica de control a prueba de fallos con paros de emergencia seguros y diagnóstico en pantalla.
+            </div>
+            <div class="point">
+              <strong>2. Código Limpio y Escalable:</strong> Estructuras documentadas, código abierto a futuras expansiones y sin candados opacos.
+            </div>
+            <div class="point">
+              <strong>3. Conectividad Segura:</strong> Monitoreo de maquinaria a través de redes cifradas y enlaces VPN auditados.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="section contact" id="contacto">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Conversemos</span>
+          <h2 class="section-title">Iniciemos tu Proyecto de Ingeniería</h2>
+          <p class="section-desc">Platícanos sobre tu requerimiento de software, automatización industrial o infraestructura técnica.</p>
+        </div>
+
+        <div class="contact-card">
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Nombre o Razón Social</label>
+                <input type="text" id="name" name="name" required placeholder="Ej. Ing. Roberto Mendoza">
+              </div>
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="contacto@empresa.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="service">Servicio Principal Requerido</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Selecciona una especialidad</option>
+                <option value="plc-mecanica">Automatización Industrial, PLCs y Mecánica Digital</option>
+                <option value="web-pwa">Desarrollo Web / PWAs / Dashboards SCADA</option>
+                <option value="apps-escritorio">Software de Escritorio / Adquisición de Datos / Apps Móviles</option>
+                <option value="scripts-auto">Automatización de Software, Reportes y Procesos</option>
+                <option value="redes-seguridad">Redes Industriales (OT/IT), VPNs y Ciberseguridad</option>
+                <option value="software-medida">Desarrollo de Solución Multi-lenguaje a Medida</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Detalles del Requerimiento</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Describe brevemente el alcance del proyecto (ej. marca de PLC, proceso mecánico, sensores, software deseado, etc.)..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Enviar Solicitud Técnica</button>
+            <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand-text">&lt;Estudio Creativo <strong class="brand-accent">ID</strong>/&gt;</span>
+        <p>Estudio creativo y de Ingeniería Digital. Integración de software avanzado, electrónica de control, PLCs y mecánica digital.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#hero">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#ingenieria">Capacidades</a></li>
+          <li><a href="#lenguajes">Tecnologías</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-legal">
+        <p>&copy; <span id="year"></span> Estudio Creativo ID. Todos los derechos reservados.</p>
+        <p class="tagline">Ingeniería Digital &bull; Automatización PLC &bull; Código</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

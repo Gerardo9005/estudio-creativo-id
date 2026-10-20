@@ -1,44 +1,91 @@
 /**
- * ESTUDIO CREATIVO ID - ARCHIVO PRINCIPAL (js/main.js)
- * Control de navegación, consola animada, formulario local,
- * actualización de año y detector de bloqueo para videos de Pinterest.
+ * ESTUDIO CREATIVO ID - CYBERNETIC CONTROLLER (js/main.js)
+ * Orquestador: Animaciones cinéticas del hero, decodificador de texto,
+ * observador de scroll, spotlight interactivo, HUD y telemetría.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initScrollProgressBar();
+  initScrollObserver();
   initNavbar();
-  initTypewriter();
+  initTextScramble();
+  initHeroHologramParallax();
+  initSpotlightEffect();
+  initHudTypewriter();
   initContactForm();
   setCurrentYear();
   initPinterestDetector();
 });
 
 /**
- * 1. Control de barra de navegación y menú móvil
+ * 1. Barra de progreso superior según posición de scroll
+ */
+function initScrollProgressBar() {
+  const progressBar = document.getElementById('scrollProgress');
+  if (!progressBar) return;
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / totalHeight) * 100;
+    progressBar.style.width = `${progress}%`;
+  });
+}
+
+/**
+ * 2. Motor de Animaciones en Scroll (IntersectionObserver escalonado)
+ */
+function initScrollObserver() {
+  const elements = document.querySelectorAll('[data-reveal]');
+  if (!elements.length) return;
+
+  const observerOptions = {
+    root: null,
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.getAttribute('data-delay') || 0;
+
+        setTimeout(() => {
+          el.classList.add('is-revealed');
+        }, parseInt(delay, 10));
+
+        obs.unobserve(el);
+      }
+    });
+  }, observerOptions);
+
+  elements.forEach(el => observer.observe(el));
+}
+
+/**
+ * 3. Barra de Navegación y Menú Móvil
  */
 function initNavbar() {
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
-  const navLinks = document.querySelectorAll('.nav-link, .nav-btn');
+  const navLinks = document.querySelectorAll('.nav-link, .btn-nav');
 
-  if (!navbar) return;
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  }
 
-  // Efecto glassmorphism y cambio de altura al hacer scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
-
-  // Alternar apertura y cierre del menú móvil
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
 
-    // Cerrar menú móvil al seleccionar cualquier enlace
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -48,67 +95,147 @@ function initNavbar() {
 }
 
 /**
- * 2. Efecto de escritura en la consola del Hero (Enfoque OT / IT)
+ * 4. Efecto de Decodificación Cibernética (Text Scramble) en el Hero
  */
-function initTypewriter() {
-  const typewriterElement = document.getElementById('typewriter');
-  if (!typewriterElement) return;
+function initTextScramble() {
+  const target = document.getElementById('scrambleTarget');
+  if (!target) return;
 
-  const messages = [
-    'polling PLC registers via Modbus TCP [Port 502]...',
-    'monitoring digital I/O rack status: ALL NORMAL',
-    'deploying desktop SCADA telemetry application...',
-    'python scripts/batch_sensor_logging.py --active',
-    'verifying VPN isolation for industrial OT network...',
-    'compiling multiplatform_solution (C++ / Python / TS)...'
+  const finalPhrase = 'INGENIERÍA DIGITAL';
+  const chars = '01#@%&<>*+-/[]{}_~!';
+  let iteration = 0;
+  let interval = null;
+
+  function runScramble() {
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      target.innerText = finalPhrase
+        .split('')
+        .map((char, index) => {
+          if (index < iteration) {
+            return finalPhrase[index];
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join('');
+
+      if (iteration >= finalPhrase.length) {
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 2;
+    }, 45);
+  }
+
+  // Ejecución con ligero retraso al cargar
+  setTimeout(runScramble, 300);
+}
+
+/**
+ * 5. Inclinación 3D (Parallax Tilt) en el Emblema Central del Hero
+ */
+function initHeroHologramParallax() {
+  const centerpiece = document.getElementById('heroCenterpiece');
+  if (!centerpiece) return;
+
+  const stage = centerpiece.querySelector('.hologram-stage');
+  if (!stage) return;
+
+  window.addEventListener('mousemove', (e) => {
+    const rect = centerpiece.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
+    const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+    const rotateX = -deltaY * 18;
+    const rotateY = deltaX * 18;
+
+    stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  centerpiece.addEventListener('mouseleave', () => {
+    stage.style.transform = `rotateX(0deg) rotateY(0deg)`;
+  });
+}
+
+/**
+ * 6. Efecto Spotlight dinámico (haz de luz siguiendo el cursor en Bento Cards)
+ */
+function initSpotlightEffect() {
+  const cards = document.querySelectorAll('.bento-card');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+}
+
+/**
+ * 7. Typewriter cibernético en la consola HUD de Telemetría
+ */
+function initHudTypewriter() {
+  const hudElement = document.getElementById('hudTypewriter');
+  if (!hudElement) return;
+
+  const logs = [
+    'syncing PLC rack I/O modules with SCADA web daemon...',
+    'monitoring structured text loop [Scan: 1.2ms | OK]',
+    'encrypting telemetric tunnel AES-GCM (Port 502/TCP)...',
+    'executing automated data pipeline scripts in Python...',
+    'validating state machine & interlock routines...'
   ];
 
-  let messageIndex = 0;
+  let logIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  const typingSpeed = 65;
+  const speed = 55;
 
-  function typeLoop() {
-    const currentMessage = messages[messageIndex];
+  function typeCycle() {
+    const current = logs[logIndex];
 
     if (!isDeleting) {
-      // Escribiendo caracter por caracter
-      typewriterElement.textContent = currentMessage.substring(0, charIndex + 1);
+      hudElement.textContent = current.substring(0, charIndex + 1);
       charIndex++;
 
-      if (charIndex === currentMessage.length) {
+      if (charIndex === current.length) {
         isDeleting = true;
-        setTimeout(typeLoop, 2200); // Pausa con la frase completa en pantalla
+        setTimeout(typeCycle, 2400);
         return;
       }
     } else {
-      // Borrando texto
-      typewriterElement.textContent = currentMessage.substring(0, charIndex - 1);
+      hudElement.textContent = current.substring(0, charIndex - 1);
       charIndex--;
 
       if (charIndex === 0) {
         isDeleting = false;
-        messageIndex = (messageIndex + 1) % messages.length;
-        setTimeout(typeLoop, 450); // Breve pausa antes de escribir la siguiente línea
+        logIndex = (logIndex + 1) % logs.length;
+        setTimeout(typeCycle, 400);
         return;
       }
     }
 
-    const currentSpeed = isDeleting ? typingSpeed / 2 : typingSpeed;
-    setTimeout(typeLoop, currentSpeed);
+    const currentSpeed = isDeleting ? speed / 2 : speed;
+    setTimeout(typeCycle, currentSpeed);
   }
 
-  typeLoop();
+  typeCycle();
 }
 
 /**
- * 3. Manejador del Formulario de Contacto
- * Optimizado para captura y depuración en entorno local
+ * 8. Manejo del Formulario de Contacto en Terminal
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const feedback = document.getElementById('formFeedback');
-
   if (!form || !feedback) return;
 
   form.addEventListener('submit', (e) => {
@@ -117,19 +244,16 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Registro estructurado en consola de desarrollo
-    console.group('🚀 [Estudio Creativo ID] Nueva Solicitud Técnica:');
+    console.group('🚀 [Estudio Creativo ID] Transmisión de Requerimiento:');
     console.table(data);
     console.log('Timestamp:', new Date().toISOString());
     console.groupEnd();
 
-    // Notificación en pantalla para el usuario
-    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Analizaremos tus requerimientos técnicos de inmediato.`;
+    feedback.textContent = `[OK] Solicitud registrada para "${data.service}". Iniciando evaluación técnica.`;
     feedback.className = 'form-feedback success';
 
     form.reset();
 
-    // Ocultar notificación tras 6 segundos
     setTimeout(() => {
       feedback.style.display = 'none';
       feedback.className = 'form-feedback';
@@ -138,7 +262,7 @@ function initContactForm() {
 }
 
 /**
- * 4. Actualización dinámica del año para el pie de página
+ * 9. Actualización de Año
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');
@@ -148,19 +272,15 @@ function setCurrentYear() {
 }
 
 /**
- * 5. Detector de bloqueo de Pinterest (Fallback para navegadores con Adblock / Shields)
+ * 10. Detector de Bloqueo de Pinterest (Fallback Inteligente)
  */
 function initPinterestDetector() {
   const containers = document.querySelectorAll('.pinterest-embed-container');
   if (!containers.length) return;
 
-  // Margen de 2.2 segundos para permitir la ejecución de pinit.js antes del chequeo
   setTimeout(() => {
     containers.forEach(container => {
-      // Si Pinterest renderiza con éxito, inyecta un span con clase o un iframe dentro
       const hasRendered = container.querySelector('span[data-pin-do], iframe, .pin-embed');
-      
-      // Si el enlace original sigue intacto y no hay nodo renderizado con altura real, se activa el fallback
       const rawLink = container.querySelector('a[data-pin-do]');
       const wasBlocked = rawLink && (!hasRendered || hasRendered.offsetHeight === 0);
 

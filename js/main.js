@@ -1,4 +1,9 @@
-// Activa el modo de animación solo cuando JS ya cargó en el navegador
+/**
+ * ESTUDIO CREATIVO ID - ARCHIVO PRINCIPAL VERIFICADO (js/main.js)
+ * Todas las funciones declaradas y blindadas contra excepciones
+ */
+
+// Notifica al CSS que JavaScript está activo
 document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,20 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
   setCurrentYear();
   initPinterestDetector();
 
-  // Seguro de respaldo: Si en 400ms algún elemento del Hero sigue oculto, muéstralo
+  // Seguro de respaldo: fuerza la visibilidad del Hero a los 300ms
   setTimeout(() => {
     document.querySelectorAll('#hero [data-reveal]').forEach(el => el.classList.add('is-revealed'));
-  }, 400);
+  }, 300);
 });
 
 /**
- * 2. Motor de Animaciones en Scroll corregido
+ * 1. Barra de progreso superior en el scroll
+ */
+function initScrollProgressBar() {
+  const progressBar = document.getElementById('scrollProgress');
+  if (!progressBar) return;
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    const progress = (window.scrollY / totalHeight) * 100;
+    progressBar.style.width = `${progress}%`;
+  });
+}
+
+/**
+ * 2. Observador de scroll para animaciones [data-reveal]
  */
 function initScrollObserver() {
   const elements = document.querySelectorAll('[data-reveal]');
   if (!elements.length) return;
 
-  // Revela inmediatamente lo que ya está en pantalla al entrar
+  // Muestra de inmediato lo que ya está en el campo de visión
   elements.forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight) {
@@ -51,7 +71,7 @@ function initScrollObserver() {
 }
 
 /**
- * 3. Barra de Navegación y Menú Móvil
+ * 3. Control de la barra de navegación y menú en móviles
  */
 function initNavbar() {
   const navbar = document.getElementById('navbar');
@@ -83,7 +103,7 @@ function initNavbar() {
 }
 
 /**
- * 4. Efecto de Decodificación Cibernética (Text Scramble) en el Hero
+ * 4. Efecto de decodificación de texto cibernético en el Hero
  */
 function initTextScramble() {
   const target = document.getElementById('scrambleTarget');
@@ -116,12 +136,11 @@ function initTextScramble() {
     }, 45);
   }
 
-  // Ejecución con ligero retraso al cargar
-  setTimeout(runScramble, 300);
+  setTimeout(runScramble, 250);
 }
 
 /**
- * 5. Inclinación 3D (Parallax Tilt) en el Emblema Central del Hero
+ * 5. Inclinación 3D (Parallax Tilt) en el logo del Hero
  */
 function initHeroHologramParallax() {
   const centerpiece = document.getElementById('heroCenterpiece');
@@ -150,7 +169,7 @@ function initHeroHologramParallax() {
 }
 
 /**
- * 6. Efecto Spotlight dinámico (haz de luz siguiendo el cursor en Bento Cards)
+ * 6. Efecto Spotlight dinámico en Bento Cards
  */
 function initSpotlightEffect() {
   const cards = document.querySelectorAll('.bento-card');
@@ -168,7 +187,7 @@ function initSpotlightEffect() {
 }
 
 /**
- * 7. Typewriter cibernético en la consola HUD de Telemetría
+ * 7. Typewriter en la consola HUD de Telemetría
  */
 function initHudTypewriter() {
   const hudElement = document.getElementById('hudTypewriter');
@@ -219,7 +238,7 @@ function initHudTypewriter() {
 }
 
 /**
- * 8. Manejo del Formulario de Contacto en Terminal
+ * 8. Manejo del formulario de contacto
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -250,7 +269,7 @@ function initContactForm() {
 }
 
 /**
- * 9. Actualización de Año
+ * 9. Actualización dinámica del año en el footer
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');
@@ -260,7 +279,7 @@ function setCurrentYear() {
 }
 
 /**
- * 10. Detector de Bloqueo de Pinterest (Fallback Inteligente)
+ * 10. Detector de bloqueo para videos de Pinterest (Fallback)
  */
 function initPinterestDetector() {
   const containers = document.querySelectorAll('.pinterest-embed-container');

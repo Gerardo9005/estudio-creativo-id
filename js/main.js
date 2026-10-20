@@ -1,9 +1,9 @@
 /**
- * ESTUDIO CREATIVO ID - ARCHIVO PRINCIPAL VERIFICADO (js/main.js)
- * Todas las funciones declaradas y blindadas contra excepciones
+ * ESTUDIO CREATIVO ID - MAIN SCRIPT
+ * Identidad Editorial: Obsidiana & Naranja Neón
  */
 
-// Notifica al CSS que JavaScript está activo
+// Notifica al CSS que JS está activo
 document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,21 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollObserver();
   initNavbar();
   initTextScramble();
-  initHeroHologramParallax();
-  initSpotlightEffect();
   initHudTypewriter();
   initContactForm();
   setCurrentYear();
   initPinterestDetector();
 
-  // Seguro de respaldo: fuerza la visibilidad del Hero a los 300ms
+  // Asegura la visibilidad del Hero a los 300ms
   setTimeout(() => {
     document.querySelectorAll('#hero [data-reveal]').forEach(el => el.classList.add('is-revealed'));
   }, 300);
 });
 
 /**
- * 1. Barra de progreso superior en el scroll
+ * 1. Barra de progreso superior al hacer scroll
  */
 function initScrollProgressBar() {
   const progressBar = document.getElementById('scrollProgress');
@@ -40,13 +38,12 @@ function initScrollProgressBar() {
 }
 
 /**
- * 2. Observador de scroll para animaciones [data-reveal]
+ * 2. Motor de Animaciones en Scroll [data-reveal]
  */
 function initScrollObserver() {
   const elements = document.querySelectorAll('[data-reveal]');
   if (!elements.length) return;
 
-  // Muestra de inmediato lo que ya está en el campo de visión
   elements.forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight) {
@@ -65,26 +62,26 @@ function initScrollObserver() {
         obs.unobserve(el);
       }
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
   elements.forEach(el => observer.observe(el));
 }
 
 /**
- * 3. Control de la barra de navegación y menú en móviles
+ * 3. Barra de Navegación y Menú Móvil
  */
 function initNavbar() {
-  const navbar = document.getElementById('navbar');
+  const navbarWrap = document.querySelector('.navbar-wrapper');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
-  const navLinks = document.querySelectorAll('.nav-link, .btn-nav');
+  const navLinks = document.querySelectorAll('.nav-link, .btn-nav-cta');
 
-  if (navbar) {
+  if (navbarWrap) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 40) {
-        navbar.classList.add('scrolled');
+        navbarWrap.classList.add('scrolled');
       } else {
-        navbar.classList.remove('scrolled');
+        navbarWrap.classList.remove('scrolled');
       }
     });
   }
@@ -103,13 +100,13 @@ function initNavbar() {
 }
 
 /**
- * 4. Efecto de decodificación de texto cibernético en el Hero
+ * 4. Efecto de Decodificación de Texto en el Titular
  */
 function initTextScramble() {
   const target = document.getElementById('scrambleTarget');
   if (!target) return;
 
-  const finalPhrase = 'INGENIERÍA DIGITAL';
+  const finalPhrase = 'DIGITALES & MECÁNICAS.';
   const chars = '01#@%&<>*+-/[]{}_~!';
   let iteration = 0;
   let interval = null;
@@ -133,78 +130,31 @@ function initTextScramble() {
       }
 
       iteration += 1 / 2;
-    }, 45);
+    }, 40);
   }
 
   setTimeout(runScramble, 250);
 }
 
 /**
- * 5. Inclinación 3D (Parallax Tilt) en el logo del Hero
- */
-function initHeroHologramParallax() {
-  const centerpiece = document.getElementById('heroCenterpiece');
-  if (!centerpiece) return;
-
-  const stage = centerpiece.querySelector('.hologram-stage');
-  if (!stage) return;
-
-  window.addEventListener('mousemove', (e) => {
-    const rect = centerpiece.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
-    const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
-
-    const rotateX = -deltaY * 18;
-    const rotateY = deltaX * 18;
-
-    stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-
-  centerpiece.addEventListener('mouseleave', () => {
-    stage.style.transform = `rotateX(0deg) rotateY(0deg)`;
-  });
-}
-
-/**
- * 6. Efecto Spotlight dinámico en Bento Cards
- */
-function initSpotlightEffect() {
-  const cards = document.querySelectorAll('.bento-card');
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-}
-
-/**
- * 7. Typewriter en la consola HUD de Telemetría
+ * 5. Consola HUD de Telemetría (Lógica industrial en tiempo real)
  */
 function initHudTypewriter() {
   const hudElement = document.getElementById('hudTypewriter');
   if (!hudElement) return;
 
   const logs = [
-    'syncing PLC rack I/O modules with SCADA web daemon...',
-    'monitoring structured text loop [Scan: 1.2ms | OK]',
-    'encrypting telemetric tunnel AES-GCM (Port 502/TCP)...',
-    'executing automated data pipeline scripts in Python...',
-    'validating state machine & interlock routines...'
+    'Ciclo de escaneo PLC OK (Tiempo: 1.1ms)',
+    'Conexión Modbus-TCP en puerto 502 establecida',
+    'PID de posición calibrado: Error < 0.05%',
+    'Auditando segmentación de red OT/IT...',
+    'Telemetría lista para exportar a SCADA'
   ];
 
   let logIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  const speed = 55;
+  const speed = 50;
 
   function typeCycle() {
     const current = logs[logIndex];
@@ -238,7 +188,7 @@ function initHudTypewriter() {
 }
 
 /**
- * 8. Manejo del formulario de contacto
+ * 6. Manejo del Formulario de Contacto
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -251,12 +201,12 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    console.group('🚀 [Estudio Creativo ID] Transmisión de Requerimiento:');
+    console.group('🚀 [Estudio Creativo ID] Solicitud Registrada:');
     console.table(data);
     console.log('Timestamp:', new Date().toISOString());
     console.groupEnd();
 
-    feedback.textContent = `[OK] Solicitud registrada para "${data.service}". Iniciando evaluación técnica.`;
+    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Te responderemos en breve.`;
     feedback.className = 'form-feedback success';
 
     form.reset();
@@ -269,7 +219,7 @@ function initContactForm() {
 }
 
 /**
- * 9. Actualización dinámica del año en el footer
+ * 7. Actualización dinámica del año en el footer
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');
@@ -279,7 +229,7 @@ function setCurrentYear() {
 }
 
 /**
- * 10. Detector de bloqueo para videos de Pinterest (Fallback)
+ * 8. Detector de Bloqueo de Pinterest (Fallback)
  */
 function initPinterestDetector() {
   const containers = document.querySelectorAll('.pinterest-embed-container');

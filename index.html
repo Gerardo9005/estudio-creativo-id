@@ -3,547 +3,557 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estudio Creativo ID | Ingeniería Digital, PLCs & Software Avanzado</title>
-  <meta name="description" content="Estudio vanguardista de ingeniería digital, automatización con PLCs, mecánica digital, desarrollo de software multiplataforma y ciberseguridad.">
+  <title>Estudio Creativo ID | Ingeniería Digital, PLCs &amp; Soluciones Tecnológicas</title>
+  <meta name="description" content="Estudio de ingeniería digital y diseño vanguardista. Automatización PLC, mecánica digital, software de escritorio, plataformas web y ciberseguridad.">
   
-  <!-- Favicon SVG con fallback -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
 
-  <!-- Tipografías: Space Grotesk, Inter y JetBrains Mono -->
+  <!-- Tipografías de alto impacto: Syne (geométrica y moderna), Inter y JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="cyber-theme">
+<body class="theme-obsidian-orange">
 
-  <!-- Barra de progreso de scroll -->
+  <!-- Barra de progreso superior -->
   <div class="scroll-progress-bar" id="scrollProgress"></div>
 
-  <!-- Rejilla y auroras cibernéticas de fondo -->
-  <div class="cyber-grid-overlay"></div>
-  <div class="ambient-glow glow-primary"></div>
-  <div class="ambient-glow glow-secondary"></div>
+  <!-- Luces y pinceladas diagonales estilo editorial -->
+  <div class="brush-splash"></div>
+  <div class="ambient-glow"></div>
 
-  <!-- Barra de Navegación Flotante Minimalista -->
+  <!-- HEADER / NAVBAR -->
   <header class="navbar-wrapper">
     <nav class="navbar" id="navbar">
       <a href="#hero" class="brand">
-        <div class="brand-logo-wrap">
-          <img src="favicon.svg" alt="Isotipo Estudio Creativo ID" class="brand-icon">
-          <span class="logo-orbit"></span>
-        </div>
-        <div class="brand-naming">
-          <span class="brand-title">Estudio Creativo <strong class="brand-id">ID</strong></span>
-          <span class="brand-sub">Ingeniería Digital</span>
-        </div>
+        <img src="favicon.svg" alt="Isotipo Estudio Creativo ID" class="brand-icon">
+        <span class="brand-text">Estudio Creativo <strong class="brand-accent">ID</strong></span>
       </a>
 
-      <!-- Status Beacon -->
-      <div class="nav-status-pill">
-        <span class="status-dot"></span>
-        <span class="status-text">Sistemas OT / IT Operativos</span>
-      </div>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú de navegación">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
         <span></span>
         <span></span>
       </button>
 
       <div class="nav-menu" id="navMenu">
         <ul class="nav-links">
-          <li><a href="#servicios" class="nav-link"><span class="nav-idx">01</span>Servicios</a></li>
-          <li><a href="#ingenieria" class="nav-link"><span class="nav-idx">02</span>Capacidades</a></li>
-          <li><a href="#lenguajes" class="nav-link"><span class="nav-idx">03</span>Stack</a></li>
-          <li><a href="#nosotros" class="nav-link"><span class="nav-idx">04</span>Manifiesto</a></li>
-          <li><a href="#contacto" class="btn btn-nav">Desplegar Proyecto</a></li>
+          <li><a href="#hero" class="nav-link active">Inicio</a></li>
+          <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#ingenieria" class="nav-link">Capacidades</a></li>
+          <li><a href="#lenguajes" class="nav-link">Tecnologías</a></li>
+          <li><a href="#contacto" class="btn btn-nav-cta">Cotizar Proyecto</a></li>
         </ul>
       </div>
     </nav>
   </header>
 
   <main>
-    <!-- HERO CINÉTICO & FUTURISTA -->
+    <!-- HERO SECTION (ESTILO LEO CARRICK: TIPOGRAFÍA GIGANTE + BADGE ROTATORIO) -->
     <section class="hero-section" id="hero">
       <div class="container hero-container">
         
-        <!-- Badge interactivo -->
-        <div class="hero-badge" data-reveal="fade-down">
-          <span class="pulse-indicator"></span>
-          <span class="badge-code">NEXUS :: DIGITAL ENGINEERING & AUTOMATION</span>
+        <div class="hero-header-meta" data-reveal="fade-down">
+          <span class="category-slash">INGENIERÍA DIGITAL ////////</span>
         </div>
 
-        <!-- Emblema Central Animado (Logo con órbitas gravitacionales) -->
-        <div class="hero-centerpiece" id="heroCenterpiece" data-reveal="scale-up">
-          <div class="hologram-stage">
-            <div class="hologram-rings">
-              <div class="ring ring-outer"></div>
-              <div class="ring ring-middle"></div>
-              <div class="ring ring-inner"></div>
+        <div class="hero-main-layout">
+          <div class="hero-copy-col">
+            <h1 class="hero-headline" data-reveal="fade-up">
+              CREAMOS SOLUCIONES <br>
+              <span class="headline-accent" id="scrambleTarget">DIGITALES &amp; MECÁNICAS<span class="hero-dot">.</span></span>
+            </h1>
+
+            <p class="hero-description" data-reveal="fade-up" data-delay="100">
+              Diseño de sistemas de alta precisión. Integramos automatización de procesos físicos mediante <strong class="highlight-text">PLCs y Mecánica Digital</strong> con desarrollo de software web reactivo, herramientas de escritorio y ciberseguridad industrial.
+            </p>
+
+            <div class="hero-cta-group" data-reveal="fade-up" data-delay="200">
+              <a href="#contacto" class="btn btn-primary-orange">
+                <span>Iniciar Proyecto</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+              <a href="#ingenieria" class="btn btn-outline-dark">
+                <span>Ver Laboratorio</span>
+                <span class="btn-arrow">↓</span>
+              </a>
             </div>
-            <div class="hologram-core">
-              <img src="favicon.svg" alt="Emblema Estudio Creativo ID" class="hero-logo-img">
+
+            <div class="hero-channel-links" data-reveal="fade-up" data-delay="300">
+              <span class="channel-label">ESTATUS OPERATIVO</span>
+              <div class="channel-beacon">
+                <span class="beacon-point"></span>
+                <span>DISPONIBILIDAD PARA DESARROLLO &amp; AUDITORÍA</span>
+              </div>
             </div>
-            <div class="core-flare"></div>
+          </div>
+
+          <!-- Columna Gráfica: Sello Rotatorio y HUD -->
+          <div class="hero-visual-col" data-reveal="scale-up" data-delay="150">
+            <!-- Badge Circular Rotatorio idéntico al de la imagen -->
+            <div class="rotating-badge-wrap">
+              <div class="rotating-badge" id="rotatingBadge">
+                <svg viewBox="0 0 100 100" class="badge-svg">
+                  <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
+                  <text>
+                    <textPath xlink:href="#circlePath">
+                      • INGENIERÍA DIGITAL • OT / IT • ESTUDIO CREATIVO ID
+                    </textPath>
+                  </text>
+                </svg>
+                <div class="badge-arrow">↗</div>
+              </div>
+            </div>
+
+            <!-- Terminal HUD en Vivo -->
+            <div class="cyber-hud-box">
+              <div class="hud-header">
+                <div class="hud-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="hud-filename">industrial_kernel.st</span>
+              </div>
+              <div class="hud-code-body">
+                <div class="hud-row"><span class="c-orange">PROGRAM</span> CicloOperativo</div>
+                <div class="hud-row">&nbsp;&nbsp;<span class="c-dim">VAR_INPUT</span> Sensor_P1 : <span class="c-orange">BOOL</span>;</div>
+                <div class="hud-row">&nbsp;&nbsp;<span class="c-dim">VAR_OUTPUT</span> Actuador_PID : <span class="c-orange">REAL</span>;</div>
+                <div class="hud-row">&nbsp;&nbsp;Modbus_TCP.Stream(<span class="c-str">"Port:502"</span>);</div>
+                <div class="hud-row hud-live-stream">
+                  <span class="c-orange">&gt;</span> <span id="hudTypewriter"></span><span class="cursor">_</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Tipografía de Impacto con efecto de decodificación -->
-        <div class="hero-typography">
-          <h1 class="hero-headline" data-reveal="fade-up">
-            <span class="text-white">DISEÑO CREATIVO &amp;</span><br>
-            <span class="text-gradient" id="scrambleTarget">INGENIERÍA DIGITAL</span>
-          </h1>
-          <p class="hero-lead" data-reveal="fade-up" data-delay="150">
-            Convergencia de precisión electromecánica y arquitectura de software. Programación avanzada de <span class="lead-highlight">PLCs &amp; Mecánica Digital</span>, plataformas web reactivas, software de escritorio y ciberseguridad industrial.
+      </div>
+    </section>
+
+    <!-- SECCIÓN ABOUT / FILOSOFÍA (CORTE ANGULADO EN BLANCO PURO) -->
+    <section class="section section-light-slice" id="nosotros">
+      <div class="container">
+        <div class="slice-grid">
+          <div class="slice-title-col" data-reveal="fade-up">
+            <span class="category-slash dark-slash">SOBRE NOSOTROS ////////</span>
+            <h2 class="slice-heading">
+              Transformando Ideas En Realidad <br>
+              <span class="accent-orange-text">Operativa &amp; Tangible.</span>
+            </h2>
+          </div>
+
+          <div class="slice-body-col" data-reveal="fade-up" data-delay="100">
+            <p class="slice-lead">
+              En <strong>Estudio Creativo ID</strong> combinamos la sensibilidad de diseño de una agencia digital de vanguardia con el rigor técnico y analítico de la ingeniería de control y software.
+            </p>
+            <p class="slice-text">
+              No creemos en soluciones genéricas o código de simulación. Diseñamos sistemas que operan en el mundo real: desde la conexión de un sensor y la lógica secuencial de un rack PLC hasta la visualización en la nube o un programa de escritorio a prueba de fallos.
+            </p>
+
+            <div class="signature-stamp">
+              <span class="stamp-id">Estudio Creativo ID</span>
+              <span class="stamp-sub">Ingeniería &amp; Código de Precisión</span>
+            </div>
+          </div>
+
+          <!-- Columna de Métricas / Pilares -->
+          <div class="slice-features-col" data-reveal="fade-up" data-delay="200">
+            <div class="feature-item">
+              <span class="feature-bullet">⊙</span>
+              <div>
+                <h4>Diseño Limpio &amp; Moderno</h4>
+                <p>Interfaces intuitivas que eliminan la fricción para el usuario final.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-bullet">⊙</span>
+              <div>
+                <h4>Ingeniería y PLCs a Medida</h4>
+                <p>Lógica estructurada en IEC 61131-3, control de actuadores y lazos PID.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-bullet">⊙</span>
+              <div>
+                <h4>Enfoque en Desempeño</h4>
+                <p>Tiempos de respuesta ultra bajos y servidores locales o en la nube protegidos.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-bullet">⊙</span>
+              <div>
+                <h4>Ciberseguridad y Redes OT/IT</h4>
+                <p>Aislamiento mediante VLANs y túneles VPN con cifrado estricto.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN SERVICIOS (TARJETAS OSCURAS CON NÚMEROS FANTASMA E ICONOS NARANJAS) -->
+    <section class="section section-dark-services" id="servicios">
+      <div class="container">
+        
+        <div class="section-meta" data-reveal="fade-up">
+          <span class="category-slash">LO QUE HACEMOS ////////</span>
+          <h2 class="section-title-bold">Servicios Especializados<span class="hero-dot">.</span></h2>
+          <p class="section-subtitle">Capacidades completas de ingeniería de software, automatización física y redes seguras.</p>
+        </div>
+
+        <div class="services-cards-grid">
+          
+          <!-- Card 1: Automatización PLC y Mecánica Digital (Destacada) -->
+          <article class="service-box featured-box" data-reveal="fade-up">
+            <span class="ghost-number">01</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+                <circle cx="6" cy="8" r="1" fill="currentColor"/>
+                <circle cx="10" cy="8" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="box-badge">ESPECIALIDAD OT / IT</div>
+            <h3 class="box-title">Automatización PLC &amp; Mecánica Digital</h3>
+            <p class="box-desc">
+              Programación de controladores lógicos (Siemens, Delta, Omron), control de servomotores, actuadores neumáticos y sistemas mecánicos secuenciales.
+            </p>
+            <ul class="box-points">
+              <li>Ladder (LD) y Structured Text (ST)</li>
+              <li>Protocolos Modbus TCP/RTU y OPC-UA</li>
+              <li>Lazos de control analógico PID y HMI</li>
+            </ul>
+          </article>
+
+          <!-- Card 2: Desarrollo Web -->
+          <article class="service-box" data-reveal="fade-up" data-delay="100">
+            <span class="ghost-number">02</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3 class="box-title">Desarrollo Web &amp; PWAs</h3>
+            <p class="box-desc">
+              Sitios web corporativos de alta velocidad, aplicaciones progresivas (PWAs) y tableros interactivos para monitoreo SCADA/IoT en tiempo real.
+            </p>
+            <ul class="box-points">
+              <li>Arquitectura SPA y SSR reactiva</li>
+              <li>Integración de WebSockets para telemetría</li>
+              <li>Diseño ultra fluido responsivo</li>
+            </ul>
+          </article>
+
+          <!-- Card 3: Apps Móviles & Escritorio -->
+          <article class="service-box" data-reveal="fade-up" data-delay="200">
+            <span class="ghost-number">03</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2"/>
+                <line x1="12" y1="18" x2="12.01" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="box-title">Software Móvil &amp; Escritorio</h3>
+            <p class="box-desc">
+              Programas de escritorio para adquisición de datos y control de instrumentación (Python/PyQt, C#), y aplicaciones móviles para inspección técnica.
+            </p>
+            <ul class="box-points">
+              <li>Software standalone compilado local</li>
+              <li>Apps nativas e híbridas con modo offline</li>
+              <li>Conexión serial / USB / Ethernet</li>
+            </ul>
+          </article>
+
+          <!-- Card 4: Automatización de Software y Scripts -->
+          <article class="service-box" data-reveal="fade-up">
+            <span class="ghost-number">04</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3 class="box-title">Automatización Digital &amp; Scripts</h3>
+            <p class="box-desc">
+              Eliminación de tareas manuales mediante pipelines en Python, extracción de datos, bots automáticos y generación instantánea de reportes normativos.
+            </p>
+            <ul class="box-points">
+              <li>Generación automática de documentos y cálculos</li>
+              <li>Procesamiento por lotes y Webhooks</li>
+              <li>Scripts autónomos para servidores locales</li>
+            </ul>
+          </article>
+
+          <!-- Card 5: Redes, Servidores y Ciberseguridad -->
+          <article class="service-box" data-reveal="fade-up" data-delay="100">
+            <span class="ghost-number">05</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="box-title">Redes Industriales &amp; Seguridad</h3>
+            <p class="box-desc">
+              Diseño de infraestructura de telecomunicaciones, segmentación de redes de piso de producción (OT) y administración (IT), cortafuegos y VPNs cifradas.
+            </p>
+            <ul class="box-points">
+              <li>Aislamiento de tráfico industrial y VLANs</li>
+              <li>Túneles VPN seguros para telegestión remota</li>
+              <li>Auditorías preventivas de puertos y accesos</li>
+            </ul>
+          </article>
+
+          <!-- Card 6: Multi-Lenguaje & Refactorización -->
+          <article class="service-box" data-reveal="fade-up" data-delay="200">
+            <span class="ghost-number">06</span>
+            <div class="box-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 7 4 4 20 4 20 7"/>
+                <line x1="9" y1="20" x2="15" y2="20"/>
+                <line x1="12" y1="4" x2="12" y2="20"/>
+              </svg>
+            </div>
+            <h3 class="box-title">Ingeniería Multi-Lenguaje a Medida</h3>
+            <p class="box-desc">
+              Capacidad técnica para diseñar o refactorizar software en distintos ecosistemas y conectar protocolos dispares con bases de datos relacionales.
+            </p>
+            <ul class="box-points">
+              <li>Python, JavaScript/TypeScript, C/C++</li>
+              <li>PostgreSQL, SQLite y brokers MQTT</li>
+              <li>APIs robustas para integración continua</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER DE STACK TECNOLÓGICO (ESTILO LIMPIO DE LA IMAGEN) -->
+    <section class="tech-strip-section" id="lenguajes">
+      <div class="container">
+        <div class="tech-strip-header">
+          <span class="category-slash dark-slash">TECNOLOGÍAS QUE DOMINAMOS ////////</span>
+        </div>
+        <div class="tech-strip-items">
+          <span class="tech-tag-item"><strong>PLCs</strong> Siemens / Delta</span>
+          <span class="tech-tag-item"><strong>ST &amp; LD</strong> IEC 61131-3</span>
+          <span class="tech-tag-item"><strong>Modbus</strong> TCP / RTU</span>
+          <span class="tech-tag-item"><strong>Python</strong> Data &amp; PyQt</span>
+          <span class="tech-tag-item"><strong>JavaScript</strong> ES6+</span>
+          <span class="tech-tag-item"><strong>TypeScript</strong></span>
+          <span class="tech-tag-item"><strong>Node.js</strong></span>
+          <span class="tech-tag-item"><strong>HTML5 / CSS3</strong></span>
+          <span class="tech-tag-item"><strong>Linux</strong> OT / IT</span>
+          <span class="tech-tag-item"><strong>PostgreSQL</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPACIDADES TÉCNICAS: VIDEOS DE PINTEREST (#ingenieria) -->
+    <section class="section section-dark-capabilities" id="ingenieria">
+      <div class="container">
+        <div class="capabilities-head-flex" data-reveal="fade-up">
+          <div>
+            <span class="category-slash">LABORATORIO &amp; PRUEBAS ////////</span>
+            <h2 class="section-title-bold">Capacidades en Video<span class="hero-dot">.</span></h2>
+          </div>
+          <p class="capabilities-head-desc">
+            Evidencia visual y registros en banco de trabajo sobre telemetría, cableado de señales analógicas, lazos de control y simulación.
           </p>
         </div>
 
-        <!-- Call to actions futuristas -->
-        <div class="hero-cta-group" data-reveal="fade-up" data-delay="300">
-          <a href="#contacto" class="btn btn-cyber-primary">
-            <span class="btn-glitch-text">Iniciar Proyecto Técnico</span>
-            <span class="btn-arrow">→</span>
-          </a>
-          <a href="#ingenieria" class="btn btn-cyber-ghost">
-            <span class="btn-icon">⚡</span>
-            <span>Ver Laboratorio en Video</span>
-          </a>
-        </div>
-
-        <!-- Telemetría / Consola HUD en vivo -->
-        <div class="hero-hud-card" data-reveal="fade-up" data-delay="450">
-          <div class="hud-top">
-            <div class="hud-indicators">
-              <span class="hud-led green"></span>
-              <span class="hud-led blue"></span>
-              <span class="hud-led purple"></span>
-            </div>
-            <span class="hud-title">LIVE TELEMETRY // CORE DAEMON</span>
-            <span class="hud-tag">ONLINE 100%</span>
-          </div>
-          <div class="hud-body">
-            <div class="hud-stream">
-              <span class="hud-line"><span class="hud-prompt">SYS_INIT &gt;</span> Subsystem [OT_PLC_BRIDGE] connected via Modbus-TCP.</span>
-              <span class="hud-line"><span class="hud-prompt">SYS_EXEC &gt;</span> Structured Text cyclic scan: 1.2ms latency.</span>
-              <span class="hud-line active-line"><span class="hud-prompt">STREAM &gt;</span> <span id="hudTypewriter"></span><span class="hud-cursor">█</span></span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SERVICIOS: BENTO GRID FUTURISTA -->
-    <section class="section services-section" id="servicios">
-      <div class="container">
-        
-        <div class="section-meta" data-reveal="fade-up">
-          <span class="meta-tag">01 // MATRIZ DE SERVICIOS</span>
-          <h2 class="section-heading">Soluciones Modulares de Alto Desempeño</h2>
-          <p class="section-subheading">Capacidades multidimensionales diseñadas para operar sin fricción entre software y hardware.</p>
-        </div>
-
-        <div class="bento-grid">
-          
-          <!-- Bento 1: PLCs y Mecánica Digital (Principal - Doble Ancho) -->
-          <article class="bento-card bento-hero-card" data-reveal="fade-up">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80" alt="Automatización de maquinaria y robots" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-badge">ESPECIALIDAD OT / IT INDUSTRIAL</div>
-              <h3 class="bento-title">Automatización PLC &amp; Mecánica Digital</h3>
-              <p class="bento-desc">
-                Desarrollo de lógica para controladores programables (Siemens, Delta, Omron, AB), sincronización de actuadores neumáticos y lazos PID para control exacto de maquinaria.
-              </p>
-              <div class="bento-tags">
-                <span>IEC 61131-3 (Ladder / ST)</span>
-                <span>Modbus TCP / RTU</span>
-                <span>OPC-UA / MQTT</span>
-                <span>SCADA &amp; HMIs</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Bento 2: Plataformas Web & PWAs -->
-          <article class="bento-card" data-reveal="fade-up" data-delay="100">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Arquitectura web contemporánea" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-icon-label">🌐 WEB ARCHITECTURE</div>
-              <h3 class="bento-title">Websites &amp; PWAs Reactivas</h3>
-              <p class="bento-desc">Interfaces ultrarrápidas, dashboards de control en tiempo real con WebSockets y aplicaciones progresivas offline-first.</p>
-              <ul class="bento-bullet-list">
-                <li>Dashboards para monitoreo de planta</li>
-                <li>Single Page Apps de alta conversión</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Bento 3: Apps Móviles y de Escritorio -->
-          <article class="bento-card" data-reveal="fade-up" data-delay="200">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Software de escritorio y móvil" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-icon-label">📱 CROSS-PLATFORM</div>
-              <h3 class="bento-title">Software Nativo &amp; Móvil</h3>
-              <p class="bento-desc">Programas de escritorio para adquisición de datos de laboratorio e interfaces móviles para inspección y captura en campo.</p>
-              <ul class="bento-bullet-list">
-                <li>Herramientas de escritorio (PyQt / C#)</li>
-                <li>Apps híbridas para iOS / Android</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Bento 4: Automatización de Software & Scripts -->
-          <article class="bento-card" data-reveal="fade-up">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Microchips y electrónica" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-icon-label">⚡ AUTOMATION</div>
-              <h3 class="bento-title">Pipelines &amp; Automatización</h3>
-              <p class="bento-desc">Procesamiento automático de lotes, generación de reportes normativos, scrapers y orquestación de tareas en segundo plano.</p>
-            </div>
-          </article>
-
-          <!-- Bento 5: Redes, Conectividad & Ciberseguridad -->
-          <article class="bento-card" data-reveal="fade-up" data-delay="100">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Servidores y seguridad perimetral" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-icon-label">🛡️ CYBERSECURITY</div>
-              <h3 class="bento-title">Redes OT/IT &amp; Blindaje</h3>
-              <p class="bento-desc">Segmentación de redes industriales mediante VLANs, túneles VPN encriptados para telegestión de PLCs y mitigación de intrusiones.</p>
-            </div>
-          </article>
-
-          <!-- Bento 6: Multi-Lenguaje & Refactorización -->
-          <article class="bento-card" data-reveal="fade-up" data-delay="200">
-            <div class="bento-spotlight"></div>
-            <div class="bento-media">
-              <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Código y matemáticas computacionales" class="bento-img" loading="lazy">
-              <div class="bento-overlay"></div>
-            </div>
-            <div class="bento-content">
-              <div class="bento-icon-label">💻 POLYGLOT CODE</div>
-              <h3 class="bento-title">Ingeniería Multi-Lenguaje</h3>
-              <p class="bento-desc">Traducción de algoritmos, drivers a medida para hardware de comunicación y bases de datos relacionales robustas.</p>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- CAPACIDADES TÉCNICAS // LABORATORIO EN VIDEO (#ingenieria) -->
-    <section class="section capabilities-section" id="ingenieria">
-      <div class="container">
-        
-        <div class="section-meta" data-reveal="fade-up">
-          <span class="meta-tag">02 // EVIDENCIA OPERATIVA</span>
-          <h2 class="section-title">Laboratorio Técnico en Video</h2>
-          <p class="section-subheading">Registros visuales de pruebas en banco de trabajo, lazos de control y arquitecturas en ejecución.</p>
-        </div>
-
-        <div class="capabilities-video-grid">
-          
+        <div class="pinterest-video-grid">
           <!-- 01: Arquitectura de Sistemas -->
-          <div class="cap-card" data-reveal="fade-up">
-            <div class="cap-header">
-              <span class="cap-index">01</span>
-              <div>
-                <h3 class="cap-name">Arquitectura de Sistemas</h3>
-                <p class="cap-details">Estructuración distribuida, diagramado de datos relacionales y APIs de alto rendimiento.</p>
-              </div>
+          <div class="video-card" data-reveal="fade-up">
+            <div class="video-card-top">
+              <span class="video-badge">01 // ARQUITECTURA</span>
+              <h4>Arquitectura de Sistemas</h4>
+              <p>Modelado de flujos de control y lógica modular.</p>
             </div>
             <div class="pinterest-embed-container" data-pin-url="https://pin.it/56IV1499U">
               <a data-pin-do="embedPin" data-pin-width="medium" data-pin-terse="true" href="https://pin.it/56IV1499U"></a>
               <div class="pin-fallback">
-                <div class="pin-fallback-preview"><span class="pin-play-icon">▶</span></div>
-                <div class="pin-fallback-content">
-                  <span class="pin-badge">VIDEO DE PROYECTO</span>
-                  <h4>Arquitectura &amp; Microservicios</h4>
-                  <p>Reproductor restringido por el escudo de privacidad de tu explorador.</p>
-                  <a href="https://pin.it/56IV1499U" target="_blank" rel="noopener noreferrer" class="btn btn-cyber-ghost btn-sm">Abrir en Pinterest ↗</a>
-                </div>
+                <div class="pin-fallback-preview"><span>▶</span></div>
+                <h5>Arquitectura &amp; Microservicios</h5>
+                <p>Reproductor retenido por el escudo de privacidad.</p>
+                <a href="https://pin.it/56IV1499U" target="_blank" rel="noopener noreferrer" class="btn btn-outline-orange">Ver en Pinterest ↗</a>
               </div>
             </div>
           </div>
 
-          <!-- 02: Integración de Hardware & OT -->
-          <div class="cap-card" data-reveal="fade-up" data-delay="100">
-            <div class="cap-header">
-              <span class="cap-index">02</span>
-              <div>
-                <h3 class="cap-name">Integración Hardware &amp; OT</h3>
-                <p class="cap-details">Manejo de señales 4-20mA, acoplamiento de sensores ópticos/inductivos y drivers de potencia.</p>
-              </div>
+          <!-- 02: Integración Hardware & OT -->
+          <div class="video-card" data-reveal="fade-up" data-delay="100">
+            <div class="video-card-top">
+              <span class="video-badge">02 // HARDWARE &amp; OT</span>
+              <h4>Integración de Hardware &amp; OT</h4>
+              <p>Señales 4-20mA, cableado y relevadores de control.</p>
             </div>
             <div class="pinterest-embed-container" data-pin-url="https://pin.it/7J9njaxCu">
               <a data-pin-do="embedPin" data-pin-width="medium" data-pin-terse="true" href="https://pin.it/7J9njaxCu"></a>
               <div class="pin-fallback">
-                <div class="pin-fallback-preview"><span class="pin-play-icon">▶</span></div>
-                <div class="pin-fallback-content">
-                  <span class="pin-badge">VIDEO DE PROYECTO</span>
-                  <h4>Conexión y Cableado Industrial</h4>
-                  <p>Reproductor restringido por el escudo de privacidad de tu explorador.</p>
-                  <a href="https://pin.it/7J9njaxCu" target="_blank" rel="noopener noreferrer" class="btn btn-cyber-ghost btn-sm">Abrir en Pinterest ↗</a>
-                </div>
+                <div class="pin-fallback-preview"><span>▶</span></div>
+                <h5>Conexión y Cableado Industrial</h5>
+                <p>Reproductor retenido por el escudo de privacidad.</p>
+                <a href="https://pin.it/7J9njaxCu" target="_blank" rel="noopener noreferrer" class="btn btn-outline-orange">Ver en Pinterest ↗</a>
               </div>
             </div>
           </div>
 
           <!-- 03: Pruebas, Simulación & FAT/SAT -->
-          <div class="cap-card" data-reveal="fade-up" data-delay="200">
-            <div class="cap-header">
-              <span class="cap-index">03</span>
-              <div>
-                <h3 class="cap-name">Pruebas, Simulación &amp; FAT</h3>
-                <p class="cap-details">Pruebas de aceptación en fábrica (FAT/SAT), validación de paros y contingencias en banco.</p>
-              </div>
+          <div class="video-card" data-reveal="fade-up" data-delay="200">
+            <div class="video-card-top">
+              <span class="video-badge">03 // PRUEBAS FAT/SAT</span>
+              <h4>Pruebas, Simulación &amp; FAT</h4>
+              <p>Validación de paros de seguridad y respuesta en banco.</p>
             </div>
             <div class="pinterest-embed-container" data-pin-url="https://pin.it/2aIXazjrR">
               <a data-pin-do="embedPin" data-pin-width="medium" data-pin-terse="true" href="https://pin.it/2aIXazjrR"></a>
               <div class="pin-fallback">
-                <div class="pin-fallback-preview"><span class="pin-play-icon">▶</span></div>
-                <div class="pin-fallback-content">
-                  <span class="pin-badge">VIDEO DE PROYECTO</span>
-                  <h4>Simulación de Lazos de Control</h4>
-                  <p>Reproductor restringido por el escudo de privacidad de tu explorador.</p>
-                  <a href="https://pin.it/2aIXazjrR" target="_blank" rel="noopener noreferrer" class="btn btn-cyber-ghost btn-sm">Abrir en Pinterest ↗</a>
-                </div>
+                <div class="pin-fallback-preview"><span>▶</span></div>
+                <h5>Simulación de Lazos de Control</h5>
+                <p>Reproductor retenido por el escudo de privacidad.</p>
+                <a href="https://pin.it/2aIXazjrR" target="_blank" rel="noopener noreferrer" class="btn btn-outline-orange">Ver en Pinterest ↗</a>
               </div>
             </div>
           </div>
 
           <!-- 04: Telemetría & Conectividad Segura -->
-          <div class="cap-card" data-reveal="fade-up" data-delay="300">
-            <div class="cap-header">
-              <span class="cap-index">04</span>
-              <div>
-                <h3 class="cap-name">Telemetría &amp; Conectividad</h3>
-                <p class="cap-details">Transmisión de registros de variables en vivo mediante Modbus TCP/RTU y servidores protegidos.</p>
-              </div>
+          <div class="video-card" data-reveal="fade-up" data-delay="300">
+            <div class="video-card-top">
+              <span class="video-badge">04 // TELEMETRÍA</span>
+              <h4>Telemetría &amp; Modbus Seguro</h4>
+              <p>Lectura de registros industriales en tiempo real.</p>
             </div>
             <div class="pinterest-embed-container" data-pin-url="https://pin.it/4GZi7DPj7">
               <a data-pin-do="embedPin" data-pin-width="medium" data-pin-terse="true" href="https://pin.it/4GZi7DPj7"></a>
               <div class="pin-fallback">
-                <div class="pin-fallback-preview"><span class="pin-play-icon">▶</span></div>
-                <div class="pin-fallback-content">
-                  <span class="pin-badge">VIDEO DE PROYECTO</span>
-                  <h4>Transmisión Modbus en Vivo</h4>
-                  <p>Reproductor restringido por el escudo de privacidad de tu explorador.</p>
-                  <a href="https://pin.it/4GZi7DPj7" target="_blank" rel="noopener noreferrer" class="btn btn-cyber-ghost btn-sm">Abrir en Pinterest ↗</a>
+                <div class="pin-fallback-preview"><span>▶</span></div>
+                <h5>Transmisión Modbus en Vivo</h5>
+                <p>Reproductor retenido por el escudo de privacidad.</p>
+                <a href="https://pin.it/4GZi7DPj7" target="_blank" rel="noopener noreferrer" class="btn btn-outline-orange">Ver en Pinterest ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACTO (SPLIT BANNER NARANJA FUEGO & FORMULARIO OBSIDIANA) -->
+    <section class="section section-contact" id="contacto">
+      <div class="container">
+        
+        <div class="contact-split-box" data-reveal="scale-up">
+          <!-- Banner Naranja de Acento con Corte Diagonal -->
+          <div class="contact-banner-side">
+            <span class="category-slash-light">VAMOS A CONVERSAR ////////</span>
+            <h2 class="contact-banner-title">
+              ¿Tienes un Proyecto en Mente?<span class="banner-dot">.</span>
+            </h2>
+            <p class="contact-banner-desc">
+              Analicemos los parámetros técnicos de tu maquinaria, tu infraestructura de red o tus requerimientos de software para estructurar la solución óptima.
+            </p>
+            <div class="contact-banner-meta">
+              <div class="banner-info-row">
+                <span class="info-label">ESPECIALIDAD</span>
+                <span class="info-value">Ingeniería Digital &amp; OT/IT</span>
+              </div>
+              <div class="banner-info-row">
+                <span class="info-label">TIEMPO DE RESPUESTA</span>
+                <span class="info-value">Menos de 24 horas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario Carbón -->
+          <div class="contact-form-side">
+            <form id="contactForm" class="bold-form">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="name">NOMBRE O EMPRESA</label>
+                  <input type="text" id="name" name="name" required placeholder="Ej. Roberto Mendoza">
+                </div>
+                <div class="form-field">
+                  <label for="email">CORREO ELECTRÓNICO</label>
+                  <input type="email" id="email" name="email" required placeholder="mendoza@empresa.com">
                 </div>
               </div>
-            </div>
-          </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- STACK TECNOLÓGICO // MATRIZ POLÍGLOTA -->
-    <section class="section stack-section" id="lenguajes">
-      <div class="container">
-        <div class="section-meta" data-reveal="fade-up">
-          <span class="meta-tag">03 // ECOSISTEMA TÉCNICO</span>
-          <h2 class="section-title">Políglotas por Naturaleza</h2>
-          <p class="section-subheading">La herramienta exacta para cada nivel de la pirámide de automatización y cómputo.</p>
-        </div>
-
-        <div class="stack-grid" data-reveal="fade-up">
-          <div class="stack-category">
-            <h4 class="category-heading">OT &amp; Automatización</h4>
-            <div class="pill-group">
-              <span class="tech-pill active-pill">PLCs Siemens / Delta / Omron</span>
-              <span class="tech-pill active-pill">Ladder &amp; Structured Text (IEC 61131-3)</span>
-              <span class="tech-pill">Modbus TCP/RTU</span>
-              <span class="tech-pill">OPC-UA / MQTT</span>
-              <span class="tech-pill">Sistemas SCADA &amp; HMIs</span>
-            </div>
-          </div>
-
-          <div class="stack-category">
-            <h4 class="category-heading">Software &amp; Desarrollo Web</h4>
-            <div class="pill-group">
-              <span class="tech-pill active-pill">Python (PyQt, Automation, Data)</span>
-              <span class="tech-pill">JavaScript / TypeScript</span>
-              <span class="tech-pill">Node.js &amp; WebSockets</span>
-              <span class="tech-pill">HTML5 &amp; CSS3 Moderno</span>
-              <span class="tech-pill">C / C++ (Sistemas Embebidos)</span>
-            </div>
-          </div>
-
-          <div class="stack-category">
-            <h4 class="category-heading">Infraestructura &amp; Redes</h4>
-            <div class="pill-group">
-              <span class="tech-pill">PostgreSQL &amp; SQLite</span>
-              <span class="tech-pill active-pill">Linux Industrial / Termux</span>
-              <span class="tech-pill">VLANs OT/IT &amp; Firewalls</span>
-              <span class="tech-pill">Túneles VPN Cifrados</span>
-              <span class="tech-pill">Git / CI-CD</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MANIFIESTO // FILOSOFÍA -->
-    <section class="section manifesto-section" id="nosotros">
-      <div class="container">
-        <div class="manifesto-box" data-reveal="scale-up">
-          <div class="manifesto-glow"></div>
-          <div class="manifesto-content">
-            <span class="meta-tag">04 // NUESTRO MANIFIESTO</span>
-            <h2 class="manifesto-title">El fin de la brecha entre el código y la máquina.</h2>
-            <p class="manifesto-body">
-              Tradicionalmente, los desarrolladores de software no comprenden cómo opera un sensor inductivo o un lazo analógico en planta. A su vez, los ingenieros de automatización convencional suelen quedar rezagados frente a la ciberseguridad, las interfaces reactivas y la nube.
-            </p>
-            <p class="manifesto-body highlight-body">
-              <strong>Estudio Creativo ID</strong> surge exactamente en esa intersección: diseñamos con audacia estética y programamos con rigor de ingeniería. Sin plantillas genéricas, sin cajas negras y con trazabilidad absoluta.
-            </p>
-            
-            <div class="manifesto-stats">
-              <div class="m-stat">
-                <span class="m-num">01</span>
-                <span class="m-text">Lógica a prueba de fallos y paros seguros</span>
-              </div>
-              <div class="m-stat">
-                <span class="m-num">02</span>
-                <span class="m-text">Arquitectura abierta, escalable y documentada</span>
-              </div>
-              <div class="m-stat">
-                <span class="m-num">03</span>
-                <span class="m-text">Cifrado estricto y telemetría segura</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACTO CIBERNÉTICO -->
-    <section class="section contact-section" id="contacto">
-      <div class="container">
-        <div class="section-meta" data-reveal="fade-up">
-          <span class="meta-tag">05 // DESPLIEGUE</span>
-          <h2 class="section-title">Iniciemos la Construcción</h2>
-          <p class="section-subheading">Transmite tus parámetros de proyecto. Formularemos una solución con arquitectura a medida.</p>
-        </div>
-
-        <div class="cyber-terminal-card" data-reveal="fade-up" data-delay="100">
-          <div class="terminal-bar">
-            <span class="terminal-circle red"></span>
-            <span class="terminal-circle yellow"></span>
-            <span class="terminal-circle green"></span>
-            <span class="terminal-tab">TRANSMISSION_PROTOCOL // INQUIRY_FORM</span>
-          </div>
-
-          <form id="contactForm" class="cyber-form">
-            <div class="form-grid">
-              <div class="input-block">
-                <label for="name">IDENTIFICADOR / NOMBRE</label>
-                <input type="text" id="name" name="name" required placeholder="Ej. Ing. Roberto Mendoza">
-                <span class="input-focus-line"></span>
-              </div>
-              <div class="input-block">
-                <label for="email">CANAL DE RESPUESTA / EMAIL</label>
-                <input type="email" id="email" name="email" required placeholder="mendoza@empresa.com">
-                <span class="input-focus-line"></span>
-              </div>
-            </div>
-
-            <div class="input-block">
-              <label for="service">VECTOR DE PROYECTO</label>
-              <div class="select-wrapper">
+              <div class="form-field">
+                <label for="service">DISCIPLINA TÉCNICA PRINCIPAL</label>
                 <select id="service" name="service" required>
-                  <option value="" disabled selected>Selecciona la disciplina técnica</option>
-                  <option value="plc-mecanica">Automatización Industrial, PLCs y Mecánica Digital</option>
+                  <option value="" disabled selected>Selecciona una opción</option>
+                  <option value="plc-mecanica">Automatización PLC &amp; Mecánica Digital</option>
                   <option value="web-dashboards">Desarrollo Web / PWAs / Dashboards SCADA</option>
-                  <option value="apps-cross">Software de Escritorio / Adquisición de Datos / Apps</option>
-                  <option value="scripts-data">Automatización de Procesos, Reportes y Pipelines</option>
+                  <option value="apps-desktop">Software de Escritorio / Adquisición de Datos / Apps</option>
+                  <option value="scripts-auto">Automatización de Software, Reportes y Pipelines</option>
                   <option value="redes-cyber">Redes Industriales (OT/IT), VPNs y Ciberseguridad</option>
-                  <option value="custom-solution">Solución Multi-lenguaje Personalizada</option>
+                  <option value="custom-solution">Solución Multi-lenguaje a Medida</option>
                 </select>
               </div>
-              <span class="input-focus-line"></span>
-            </div>
 
-            <div class="input-block">
-              <label for="message">PARÁMETROS TÉCNICOS &amp; ALCANCE</label>
-              <textarea id="message" name="message" rows="4" required placeholder="Describe componentes, protocolos, marcas de hardware o especificaciones clave del sistema..."></textarea>
-              <span class="input-focus-line"></span>
-            </div>
+              <div class="form-field">
+                <label for="message">DETALLES DEL ALCANCE TÉCNICO</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Describe componentes, marcas de PLC, protocolos o metas del proyecto..."></textarea>
+              </div>
 
-            <button type="submit" class="btn btn-cyber-primary btn-full">
-              <span class="btn-glitch-text">TRANSMITIR SOLICITUD TÉCNICA</span>
-              <span class="btn-arrow">→</span>
-            </button>
+              <button type="submit" class="btn btn-primary-orange btn-submit-full">
+                <span>Enviar Parámetros Técnicos</span>
+                <span class="btn-arrow">↗</span>
+              </button>
 
-            <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
-          </form>
+              <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
+            </form>
+          </div>
         </div>
+
       </div>
     </section>
   </main>
 
-  <!-- FOOTER MINIMALISTA Y TÉCNICO -->
-  <footer class="cyber-footer">
-    <div class="container footer-grid">
-      <div class="footer-left">
-        <div class="footer-brand">
-          <img src="favicon.svg" alt="Isotipo ID" class="footer-logo">
-          <span class="footer-brand-text">Estudio Creativo <strong class="brand-id">ID</strong></span>
-        </div>
-        <p class="footer-description">
-          Despacho especializado en Ingeniería Digital, Lógica Secuencial de PLCs, Mecánica Digital y Arquitectura de Software Contemporánea.
+  <!-- FOOTER LIMPIO Y EDITORIAL -->
+  <footer class="site-footer">
+    <div class="container footer-content-grid">
+      <div class="footer-col-brand">
+        <a href="#hero" class="brand">
+          <img src="favicon.svg" alt="Isotipo ID" class="brand-icon">
+          <span class="brand-text">Estudio Creativo <strong class="brand-accent">ID</strong></span>
+        </a>
+        <p class="footer-tagline">
+          Estudio de Ingeniería Digital, Automatización de PLCs, Mecánica Digital y Software Contemporáneo.
         </p>
       </div>
 
-      <div class="footer-nav">
-        <span class="footer-nav-title">Índice</span>
+      <div class="footer-col-nav">
+        <span class="footer-heading">Navegación</span>
         <ul>
-          <li><a href="#hero">00 // Inicio</a></li>
-          <li><a href="#servicios">01 // Servicios</a></li>
-          <li><a href="#ingenieria">02 // Capacidades</a></li>
-          <li><a href="#lenguajes">03 // Stack</a></li>
-          <li><a href="#nosotros">04 // Manifiesto</a></li>
-          <li><a href="#contacto">05 // Despliegue</a></li>
+          <li><a href="#hero">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#ingenieria">Capacidades</a></li>
+          <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
 
-      <div class="footer-meta">
-        <span class="footer-nav-title">Status Operativo</span>
-        <div class="telemetry-badge">
-          <span class="status-dot"></span>
-          <span>Core v2.6 // Local &amp; Edge Ready</span>
-        </div>
-        <p class="footer-copy">&copy; <span id="year"></span> Estudio Creativo ID.<br>Todos los derechos reservados.</p>
+      <div class="footer-col-meta">
+        <span class="footer-heading">Ecosistema</span>
+        <p>Integración armónica entre código de alto nivel y control de hardware de planta.</p>
+        <span class="footer-copy">&copy; <span id="year"></span> Estudio Creativo ID. Todos los derechos reservados.</span>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/main.js"></script>
-  <!-- Renderizador oficial de Pinterest -->
   <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 </body>
 </html>

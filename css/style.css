@@ -1107,3 +1107,105 @@ h1, h2, h3, h4 {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
 }
+
+/* ==========================================================================
+   Fallback de Video Pinterest (Protección contra Adblockers)
+   ========================================================================== */
+.pinterest-embed-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 12, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+/* Oculto por defecto mientras Pinterest intenta renderizar */
+.pin-fallback {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  width: 100%;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Cuando el script detecta bloqueo, activa esta clase */
+.pinterest-embed-container.blocked .pin-fallback {
+  display: flex;
+}
+
+.pinterest-embed-container.blocked > a[data-pin-do] {
+  display: none !important;
+}
+
+.pin-fallback-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(138, 43, 226, 0.25));
+  border: 1px solid var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+  animation: pulsePlay 2.5s infinite;
+}
+
+.pin-play-icon {
+  color: var(--accent-cyan);
+  font-size: 1.3rem;
+  margin-left: 4px;
+}
+
+.pin-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.pin-fallback-content h4 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.pin-fallback-content p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  line-height: 1.4;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+@keyframes pulsePlay {
+  0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+  50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); }
+  100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

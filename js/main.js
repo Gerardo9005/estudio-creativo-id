@@ -1,8 +1,5 @@
-/**
- * ESTUDIO CREATIVO ID - CYBERNETIC CONTROLLER (js/main.js)
- * Orquestador: Animaciones cinéticas del hero, decodificador de texto,
- * observador de scroll, spotlight interactivo, HUD y telemetría.
- */
+// Activa el modo de animación solo cuando JS ya cargó en el navegador
+document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
   initScrollProgressBar();
@@ -15,49 +12,40 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   setCurrentYear();
   initPinterestDetector();
+
+  // Seguro de respaldo: Si en 400ms algún elemento del Hero sigue oculto, muéstralo
+  setTimeout(() => {
+    document.querySelectorAll('#hero [data-reveal]').forEach(el => el.classList.add('is-revealed'));
+  }, 400);
 });
 
 /**
- * 1. Barra de progreso superior según posición de scroll
- */
-function initScrollProgressBar() {
-  const progressBar = document.getElementById('scrollProgress');
-  if (!progressBar) return;
-
-  window.addEventListener('scroll', () => {
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / totalHeight) * 100;
-    progressBar.style.width = `${progress}%`;
-  });
-}
-
-/**
- * 2. Motor de Animaciones en Scroll (IntersectionObserver escalonado)
+ * 2. Motor de Animaciones en Scroll corregido
  */
 function initScrollObserver() {
   const elements = document.querySelectorAll('[data-reveal]');
   if (!elements.length) return;
 
-  const observerOptions = {
-    root: null,
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
-  };
+  // Revela inmediatamente lo que ya está en pantalla al entrar
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.add('is-revealed');
+    }
+  });
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const delay = el.getAttribute('data-delay') || 0;
-
         setTimeout(() => {
           el.classList.add('is-revealed');
         }, parseInt(delay, 10));
-
         obs.unobserve(el);
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
   elements.forEach(el => observer.observe(el));
 }

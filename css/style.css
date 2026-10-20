@@ -107,21 +107,26 @@ body {
 }
 
 /* ==========================================================================
-   ANIMACIONES DE SCROLL (data-reveal)
+   ANIMACIONES DE SCROLL SEGURAS (Fallback automático si no hay JS)
    ========================================================================== */
+/* Por defecto TODO es visible para que nunca se quede la pantalla en blanco */
 [data-reveal] {
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-duration: 0.9s;
-  transition-timing-function: var(--ease-out-expo);
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-[data-reveal="fade-up"] { transform: translateY(40px); }
-[data-reveal="fade-down"] { transform: translateY(-30px); }
-[data-reveal="scale-up"] { transform: scale(0.92); }
+/* Solo se ocultan temporalmente si JavaScript confirma que está activo */
+html.js-ready [data-reveal] {
+  opacity: 0;
+}
+html.js-ready [data-reveal="fade-up"] { transform: translateY(35px); }
+html.js-ready [data-reveal="fade-down"] { transform: translateY(-25px); }
+html.js-ready [data-reveal="scale-up"] { transform: scale(0.94); }
 
-[data-reveal].is-revealed {
+/* Al hacer scroll o al cargar, se muestran fluidamente */
+html.js-ready [data-reveal].is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
 }

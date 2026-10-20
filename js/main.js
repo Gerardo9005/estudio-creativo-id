@@ -1,6 +1,7 @@
 /**
- * ESTUDIO CREATIVO ID
- * Script principal: Efectos dinámicos, navegación y formulario local
+ * ESTUDIO CREATIVO ID - ARCHIVO PRINCIPAL (js/main.js)
+ * Control de navegación, consola animada, formulario local,
+ * actualización de año y detector de bloqueo para videos de Pinterest.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
   initContactForm();
   setCurrentYear();
+  initPinterestDetector();
 });
 
 /**
@@ -19,7 +21,9 @@ function initNavbar() {
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link, .nav-btn');
 
-  // Efecto blur/background al hacer scroll
+  if (!navbar) return;
+
+  // Efecto glassmorphism y cambio de altura al hacer scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       navbar.classList.add('scrolled');
@@ -28,21 +32,23 @@ function initNavbar() {
     }
   });
 
-  // Toggle Menú Móvil
-  navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-  });
-
-  // Cerrar menú al hacer clic en un enlace
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('active');
+  // Alternar apertura y cierre del menú móvil
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
     });
-  });
+
+    // Cerrar menú móvil al seleccionar cualquier enlace
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  }
 }
 
 /**
- * 2. Efecto de escritura en la terminal de la sección Hero
+ * 2. Efecto de escritura en la consola del Hero (Enfoque OT / IT)
  */
 function initTypewriter() {
   const typewriterElement = document.getElementById('typewriter');
@@ -53,36 +59,37 @@ function initTypewriter() {
     'monitoring digital I/O rack status: ALL NORMAL',
     'deploying desktop SCADA telemetry application...',
     'python scripts/batch_sensor_logging.py --active',
-    'verifying VPN isolation for industrial OT network...'
+    'verifying VPN isolation for industrial OT network...',
+    'compiling multiplatform_solution (C++ / Python / TS)...'
   ];
 
   let messageIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  let typingSpeed = 70;
+  const typingSpeed = 65;
 
   function typeLoop() {
     const currentMessage = messages[messageIndex];
 
     if (!isDeleting) {
-      // Escribiendo
+      // Escribiendo caracter por caracter
       typewriterElement.textContent = currentMessage.substring(0, charIndex + 1);
       charIndex++;
 
       if (charIndex === currentMessage.length) {
         isDeleting = true;
-        setTimeout(typeLoop, 2000); // Pausa al completar la frase
+        setTimeout(typeLoop, 2200); // Pausa con la frase completa en pantalla
         return;
       }
     } else {
-      // Borrando
+      // Borrando texto
       typewriterElement.textContent = currentMessage.substring(0, charIndex - 1);
       charIndex--;
 
       if (charIndex === 0) {
         isDeleting = false;
         messageIndex = (messageIndex + 1) % messages.length;
-        setTimeout(typeLoop, 500); // Pausa antes de la siguiente frase
+        setTimeout(typeLoop, 450); // Breve pausa antes de escribir la siguiente línea
         return;
       }
     }
@@ -95,13 +102,14 @@ function initTypewriter() {
 }
 
 /**
- * 3. Manejador del Formulario de Contacto (Orientado a desarrollo local)
+ * 3. Manejador del Formulario de Contacto
+ * Optimizado para captura y depuración en entorno local
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const feedback = document.getElementById('formFeedback');
 
-  if (!form) return;
+  if (!form || !feedback) return;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -109,18 +117,19 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Registro en la consola para depuración local
-    console.group('🚀 [Estudio Creativo ID] Nueva Consulta Recibida:');
+    // Registro estructurado en consola de desarrollo
+    console.group('🚀 [Estudio Creativo ID] Nueva Solicitud Técnica:');
     console.table(data);
+    console.log('Timestamp:', new Date().toISOString());
     console.groupEnd();
 
-    // Feedback visual al usuario
-    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Te responderemos a la brevedad.`;
+    // Notificación en pantalla para el usuario
+    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Analizaremos tus requerimientos técnicos de inmediato.`;
     feedback.className = 'form-feedback success';
 
     form.reset();
 
-    // Ocultar mensaje tras 6 segundos
+    // Ocultar notificación tras 6 segundos
     setTimeout(() => {
       feedback.style.display = 'none';
       feedback.className = 'form-feedback';
@@ -129,11 +138,35 @@ function initContactForm() {
 }
 
 /**
- * 4. Actualizar año de copyright automáticamente
+ * 4. Actualización dinámica del año para el pie de página
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
+}
+
+/**
+ * 5. Detector de bloqueo de Pinterest (Fallback para navegadores con Adblock / Shields)
+ */
+function initPinterestDetector() {
+  const containers = document.querySelectorAll('.pinterest-embed-container');
+  if (!containers.length) return;
+
+  // Margen de 2.2 segundos para permitir la ejecución de pinit.js antes del chequeo
+  setTimeout(() => {
+    containers.forEach(container => {
+      // Si Pinterest renderiza con éxito, inyecta un span con clase o un iframe dentro
+      const hasRendered = container.querySelector('span[data-pin-do], iframe, .pin-embed');
+      
+      // Si el enlace original sigue intacto y no hay nodo renderizado con altura real, se activa el fallback
+      const rawLink = container.querySelector('a[data-pin-do]');
+      const wasBlocked = rawLink && (!hasRendered || hasRendered.offsetHeight === 0);
+
+      if (wasBlocked) {
+        container.classList.add('blocked');
+      }
+    });
+  }, 2200);
 }

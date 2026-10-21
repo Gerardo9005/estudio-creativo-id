@@ -1,14 +1,21 @@
 /**
- * ESTUDIO CREATIVO ID - MAIN SCRIPT (js/main.js)
- * Versión completa y actualizada con soporte integral para videos HTML5 locales,
- * control de reproducción móvil, telemetría HUD, menú táctil y animaciones.
+ * ESTUDIO CREATIVO ID - ARCHIVO PRINCIPAL OPTIMIZADO (js/main.js)
+ * Versión: Producción / Desarrollo Local
+ * Características:
+ *  - Orquestación 60fps con requestAnimationFrame para scroll y progreso.
+ *  - IntersectionObserver de doble propósito: animaciones de entrada y reproducción
+ *    inteligente de videos (pausa fuera de pantalla para ahorro de batería/GPU).
+ *  - Decodificación cinética de texto con caracteres monoespaciados.
+ *  - Consola HUD de telemetría industrial en tiempo real.
+ *  - Drawer de navegación táctil con bloqueo de scroll nativo y accesibilidad ARIA.
+ *  - Manejador de videos HTML5 locales con soporte estricto para iOS/Android.
  */
 
-// Notifica inmediatamente al CSS que JavaScript está activo en el navegador
+// Notifica inmediatamente al DOM para habilitar transiciones controladas por JS
 document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
-  initScrollProgressBar();
+  initScrollEngine();
   initScrollObserver();
   initNavbar();
   initTextScramble();
@@ -17,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   setCurrentYear();
 
-  // Margen de seguridad: asegura que los elementos del Hero sean visibles
-  // incluso si la carga de red o el IntersectionObserver presentan demora
+  // Margen de seguridad: Garantiza la visibilidad de la sección Hero
+  // ante redes de baja latencia o renderizado inicial diferido
   setTimeout(() => {
     document.querySelectorAll('#hero [data-reveal]').forEach((el) => {
       el.classList.add('is-revealed');
@@ -27,34 +34,66 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * 1. Barra de progreso superior en tiempo real según el scroll
+ * 1. Motor de Scroll: Barra de Lectura y Navbar Dinámica (requestAnimationFrame)
  */
-function initScrollProgressBar() {
+function initScrollEngine() {
   const progressBar = document.getElementById('scrollProgress');
-  if (!progressBar) return;
+  const navbarWrap = document.querySelector('.navbar-wrapper');
+  let isTicking = false;
 
-  const updateProgress = () => {
+  const onScroll = () => {
+    const scrollY = window.scrollY || window.pageYOffset;
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (totalHeight <= 0) {
-      progressBar.style.width = '0%';
-      return;
+
+    // Actualización de la barra de progreso
+    if (progressBar) {
+      if (totalHeight <= 0) {
+        progressBar.style.width = '0%';
+      } else {
+        const progress = Math.min(100, Math.max(0, (scrollY / totalHeight) * 100));
+        progressBar.style.width = `${progress}%`;
+      }
     }
-    const progress = (window.scrollY / totalHeight) * 100;
-    progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+
+    // Efecto de contraste y sombra en navbar
+    if (navbarWrap) {
+      if (scrollY > 30) {
+        if (!navbarWrap.classList.contains('scrolled')) {
+          navbarWrap.classList.add('scrolled');
+        }
+      } else {
+        if (navbarWrap.classList.contains('scrolled')) {
+          navbarWrap.classList.remove('scrolled');
+        }
+      }
+    }
+
+    isTicking = false;
   };
 
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!isTicking) {
+        window.requestAnimationFrame(onScroll);
+        isTicking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  // Ejecución inicial preventiva
+  onScroll();
 }
 
 /**
- * 2. Motor de Animaciones de Scroll con IntersectionObserver
+ * 2. Motor de Animaciones de Scroll [data-reveal]
  */
 function initScrollObserver() {
   const elements = document.querySelectorAll('[data-reveal]');
   if (!elements.length) return;
 
-  // Revela inmediatamente los elementos que ya están en el viewport al cargar
+  // Revelar de inmediato elementos visibles en el viewport inicial
   elements.forEach((el) => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight - 30) {
@@ -73,7 +112,7 @@ function initScrollObserver() {
     rootMargin: '0px 0px -20px 0px'
   };
 
-  const observer = new IntersectionObserver((entries, obs) => {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
@@ -87,68 +126,68 @@ function initScrollObserver() {
           el.classList.add('is-revealed');
         }
 
-        obs.unobserve(el);
+        observer.unobserve(el);
       }
     });
   }, observerOptions);
 
-  elements.forEach((el) => observer.observe(el));
+  elements.forEach((el) => revealObserver.observe(el));
 }
 
 /**
- * 3. Barra de Navegación y Menú Móvil con Bloqueo de Scroll
+ * 3. Barra de Navegación, Menú Drawer Móvil y Bloqueo de Scroll
  */
 function initNavbar() {
-  const navbarWrap = document.querySelector('.navbar-wrapper');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link, .btn-nav-cta');
 
-  // Control de fondo y sombra al hacer scroll
-  if (navbarWrap) {
-    const handleNavbarScroll = () => {
-      if (window.scrollY > 30) {
-        navbarWrap.classList.add('scrolled');
-      } else {
-        navbarWrap.classList.remove('scrolled');
-      }
-    };
+  if (!navToggle || !navMenu) return;
 
-    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-    handleNavbarScroll();
-  }
+  const toggleMenu = (forceState) => {
+    const isOpening = forceState !== undefined ? forceState : !navMenu.classList.contains('active');
+    
+    navMenu.classList.toggle('active', isOpening);
+    navToggle.classList.toggle('active', isOpening);
+    document.body.classList.toggle('menu-open', isOpening);
+    navToggle.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+  };
 
-  // Comportamiento del Drawer móvil
-  if (navToggle && navMenu) {
-    const closeMenu = () => {
-      navMenu.classList.remove('active');
-      navToggle.classList.remove('active');
-      document.body.classList.remove('menu-open');
-    };
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
 
-    navToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active', isOpen);
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-
-    // Cerrar al pulsar cualquier enlace
-    navLinks.forEach((link) => {
-      link.addEventListener('click', closeMenu);
-    });
-
-    // Cerrar automáticamente si se redimensiona a pantalla de escritorio
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-        closeMenu();
+  // Cerrar al pulsar un enlace de navegación
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (navMenu.classList.contains('active')) {
+        toggleMenu(false);
       }
     });
-  }
+  });
+
+  // Cerrar al pulsar fuera del menú en pantallas táctiles
+  document.addEventListener('click', (e) => {
+    if (
+      navMenu.classList.contains('active') &&
+      !navMenu.contains(e.target) &&
+      !navToggle.contains(e.target)
+    ) {
+      toggleMenu(false);
+    }
+  });
+
+  // Cerrar automáticamente si el viewport supera el punto de ruptura móvil (768px)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+      toggleMenu(false);
+    }
+  });
 }
 
 /**
- * 4. Efecto de Decodificación Cinética (Text Scramble) en el Titular
+ * 4. Efecto de Decodificación Cinética (Text Scramble)
  */
 function initTextScramble() {
   const target = document.getElementById('scrambleTarget');
@@ -185,7 +224,7 @@ function initTextScramble() {
 }
 
 /**
- * 5. Consola HUD de Telemetría (Lógica industrial en tiempo real)
+ * 5. Consola HUD de Telemetría Industrial (Typewriter Loop)
  */
 function initHudTypewriter() {
   const hudElement = document.getElementById('hudTypewriter');
@@ -194,10 +233,10 @@ function initHudTypewriter() {
   const logs = [
     'Ciclo de escaneo PLC OK (Tiempo: 1.1ms)',
     'Conexión Modbus-TCP en puerto 502 establecida',
-    'PID de posición calibrado: Error < 0.05%',
-    'Auditando segmentación de red OT/IT...',
-    'Telemetría en vivo lista para exportar a SCADA',
-    'Servidor local WebSocket: 0 paquetes perdidos'
+    'Lazo PID calibrado: Margen de error < 0.05%',
+    'Segmentación de red industrial OT/IT: ACTIVA',
+    'Telemetría de actuadores lista para SCADA',
+    'Servidor WebSocket local: 0 paquetes perdidos'
   ];
 
   let logIndex = 0;
@@ -237,15 +276,38 @@ function initHudTypewriter() {
 }
 
 /**
- * 6. Controlador y Diagnóstico de Videos Técnicos Locales (HTML5 Video)
- * Forzado de autoplay con mute garantizado, listeners de interacción y reporte de errores en consola.
+ * 6. Manejador de Videos Técnicos HTML5 Locales
+ * Optimización:
+ *  - Autoplay forzado con mute a nivel propiedad y atributo.
+ *  - Pausa inteligente cuando el video sale del campo visual (ahorro de batería y GPU).
+ *  - Desbloqueo ante primera interacción si el navegador aplica directiva de ahorro de datos.
  */
 function initTechVideos() {
   const videos = document.querySelectorAll('.tech-video');
   if (!videos.length) return;
 
+  // Observador para reproducir sólo cuando el contenedor sea visible
+  const videoVisibilityObserver = ('IntersectionObserver' in window)
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const vid = entry.target;
+            if (entry.isIntersecting) {
+              const playPromise = vid.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+              }
+            } else {
+              vid.pause();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      )
+    : null;
+
   videos.forEach((video, index) => {
-    // Requisitos indispensables para autoplay en navegadores modernos y móviles
+    // Requisitos universales de autoplay en navegadores modernos
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
@@ -255,48 +317,42 @@ function initTechVideos() {
     const sourceEl = video.querySelector('source');
     const sourceUrl = sourceEl ? sourceEl.getAttribute('src') : video.getAttribute('src');
 
-    // Diagnóstico en consola si el archivo no existe (404) o el formato/códec falla
+    // Detección y log de carga
     if (sourceEl) {
       sourceEl.addEventListener('error', () => {
         console.error(
-          `❌ [Error Video ${index + 1}]: No se pudo cargar el archivo desde la ruta: "${sourceUrl}". ` +
-          `Verifica que el archivo exista en el repositorio exactamente con ese nombre y extensión.`
+          `❌ [Video ${index + 1}]: No se encontró o falló el archivo en: "${sourceUrl}".`
         );
       });
     }
 
-    video.addEventListener('error', (e) => {
-      console.error(`❌ [Error en elemento video ${index + 1}]:`, e);
-    });
-
     video.addEventListener('loadeddata', () => {
-      console.log(`✅ [Video ${index + 1} OK]: Cargado exitosamente (${sourceUrl})`);
+      console.log(`✅ [Video ${index + 1} OK]: ${sourceUrl}`);
     });
 
-    // Intentar reproducir automáticamente
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Si las directivas de seguridad del navegador retienen el autoplay,
-        // reproducir ante la primera interacción del usuario en la pantalla
-        const startOnUserInteraction = () => {
-          video.play().catch(() => {});
-          window.removeEventListener('touchstart', startOnUserInteraction);
-          window.removeEventListener('click', startOnUserInteraction);
-          window.removeEventListener('scroll', startOnUserInteraction);
-        };
-
-        window.addEventListener('touchstart', startOnUserInteraction, { once: true, passive: true });
-        window.addEventListener('click', startOnUserInteraction, { once: true });
-        window.addEventListener('scroll', startOnUserInteraction, { once: true, passive: true });
-      });
+    // Conectar observador de visibilidad
+    if (videoVisibilityObserver) {
+      videoVisibilityObserver.observe(video);
+    } else {
+      video.play().catch(() => {});
     }
+
+    // Fallback: Si el sistema operativo tiene activado modo de ahorro de batería estricto
+    const unlockAutoplay = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+      window.removeEventListener('touchstart', unlockAutoplay);
+      window.removeEventListener('click', unlockAutoplay);
+    };
+
+    window.addEventListener('touchstart', unlockAutoplay, { once: true, passive: true });
+    window.addEventListener('click', unlockAutoplay, { once: true });
   });
 }
 
 /**
  * 7. Manejo del Formulario de Contacto
- * Registro estructurado en consola y notificación en pantalla
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -309,13 +365,13 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Registro estructurado para depuración local
-    console.group('🚀 [Estudio Creativo ID] Solicitud Registrada:');
+    // Registro estructurado para desarrollo y auditoría local
+    console.group('🚀 [Estudio Creativo ID] Solicitud de Proyecto Recibida:');
     console.table(data);
     console.log('Timestamp:', new Date().toISOString());
     console.groupEnd();
 
-    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Analizaremos los requerimientos técnicos y te responderemos a la brevedad.`;
+    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Analizaremos tus parámetros técnicos y nos pondremos en contacto.`;
     feedback.className = 'form-feedback success';
 
     form.reset();
@@ -328,7 +384,7 @@ function initContactForm() {
 }
 
 /**
- * 8. Actualización dinámica del año en el footer
+ * 8. Actualización Dinámica del Año de Copyright
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');

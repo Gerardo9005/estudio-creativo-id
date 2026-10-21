@@ -1,12 +1,10 @@
 /**
  * ESTUDIO CREATIVO ID - MAIN SCRIPT (js/main.js)
- * Versión completa y optimizada para producción y desarrollo local.
- * Incluye: Control de navegación móvil con bloqueo de scroll, observador de animaciones,
- * decodificador de texto cinético, consola HUD de telemetría, detector de adblock para Pinterest
- * y procesador de formulario de contacto.
+ * Versión completa y actualizada con soporte integral para videos HTML5 locales,
+ * control de reproducción móvil, telemetría HUD, menú táctil y animaciones.
  */
 
-// Notifica inmediatamente al CSS que JavaScript está habilitado
+// Notifica inmediatamente al CSS que JavaScript está activo en el navegador
 document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initTextScramble();
   initHudTypewriter();
+  initTechVideos();
   initContactForm();
   setCurrentYear();
-  initPinterestDetector();
 
   // Margen de seguridad: asegura que los elementos del Hero sean visibles
   // incluso si la carga de red o el IntersectionObserver presentan demora
@@ -65,7 +63,6 @@ function initScrollObserver() {
   });
 
   if (!('IntersectionObserver' in window)) {
-    // Fallback para navegadores antiguos sin soporte de IntersectionObserver
     elements.forEach((el) => el.classList.add('is-revealed'));
     return;
   }
@@ -107,7 +104,7 @@ function initNavbar() {
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link, .btn-nav-cta');
 
-  // Control de sombra y fondo al deslizar la página
+  // Control de fondo y sombra al hacer scroll
   if (navbarWrap) {
     const handleNavbarScroll = () => {
       if (window.scrollY > 30) {
@@ -136,12 +133,12 @@ function initNavbar() {
       document.body.classList.toggle('menu-open', isOpen);
     });
 
-    // Cerrar al pulsar cualquier enlace de navegación
+    // Cerrar al pulsar cualquier enlace
     navLinks.forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
 
-    // Cerrar automáticamente si se redimensiona la pantalla a tamaño desktop
+    // Cerrar automáticamente si se redimensiona a pantalla de escritorio
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
         closeMenu();
@@ -240,8 +237,66 @@ function initHudTypewriter() {
 }
 
 /**
- * 6. Manejo del Formulario de Contacto
- * Registro estructurado para depuración local y feedback visual
+ * 6. Controlador y Diagnóstico de Videos Técnicos Locales (HTML5 Video)
+ * Forzado de autoplay con mute garantizado, listeners de interacción y reporte de errores en consola.
+ */
+function initTechVideos() {
+  const videos = document.querySelectorAll('.tech-video');
+  if (!videos.length) return;
+
+  videos.forEach((video, index) => {
+    // Requisitos indispensables para autoplay en navegadores modernos y móviles
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+
+    const sourceEl = video.querySelector('source');
+    const sourceUrl = sourceEl ? sourceEl.getAttribute('src') : video.getAttribute('src');
+
+    // Diagnóstico en consola si el archivo no existe (404) o el formato/códec falla
+    if (sourceEl) {
+      sourceEl.addEventListener('error', () => {
+        console.error(
+          `❌ [Error Video ${index + 1}]: No se pudo cargar el archivo desde la ruta: "${sourceUrl}". ` +
+          `Verifica que el archivo exista en el repositorio exactamente con ese nombre y extensión.`
+        );
+      });
+    }
+
+    video.addEventListener('error', (e) => {
+      console.error(`❌ [Error en elemento video ${index + 1}]:`, e);
+    });
+
+    video.addEventListener('loadeddata', () => {
+      console.log(`✅ [Video ${index + 1} OK]: Cargado exitosamente (${sourceUrl})`);
+    });
+
+    // Intentar reproducir automáticamente
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Si las directivas de seguridad del navegador retienen el autoplay,
+        // reproducir ante la primera interacción del usuario en la pantalla
+        const startOnUserInteraction = () => {
+          video.play().catch(() => {});
+          window.removeEventListener('touchstart', startOnUserInteraction);
+          window.removeEventListener('click', startOnUserInteraction);
+          window.removeEventListener('scroll', startOnUserInteraction);
+        };
+
+        window.addEventListener('touchstart', startOnUserInteraction, { once: true, passive: true });
+        window.addEventListener('click', startOnUserInteraction, { once: true });
+        window.addEventListener('scroll', startOnUserInteraction, { once: true, passive: true });
+      });
+    }
+  });
+}
+
+/**
+ * 7. Manejo del Formulario de Contacto
+ * Registro estructurado en consola y notificación en pantalla
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -254,7 +309,7 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Registro en la consola para desarrollo local
+    // Registro estructurado para depuración local
     console.group('🚀 [Estudio Creativo ID] Solicitud Registrada:');
     console.table(data);
     console.log('Timestamp:', new Date().toISOString());
@@ -273,32 +328,11 @@ function initContactForm() {
 }
 
 /**
- * 7. Actualización dinámica del año en el footer
+ * 8. Actualización dinámica del año en el footer
  */
 function setCurrentYear() {
   const yearElement = document.getElementById('year');
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
-}
-
-/**
- * 8. Detector de Bloqueo de Pinterest (Fallback Inteligente para Adblock / Shields)
- */
-function initPinterestDetector() {
-  const containers = document.querySelectorAll('.pinterest-embed-container');
-  if (!containers.length) return;
-
-  // Espera 2.2 segundos para verificar si el SDK de Pinterest (pinit.js) renderizó el iframe
-  setTimeout(() => {
-    containers.forEach((container) => {
-      const hasRendered = container.querySelector('span[data-pin-do], iframe, .pin-embed');
-      const rawLink = container.querySelector('a[data-pin-do]');
-      const wasBlocked = rawLink && (!hasRendered || hasRendered.offsetHeight === 0);
-
-      if (wasBlocked) {
-        container.classList.add('blocked');
-      }
-    });
-  }, 2200);
 }

@@ -1,9 +1,12 @@
 /**
- * ESTUDIO CREATIVO ID - MAIN SCRIPT
- * Identidad Editorial: Obsidiana & Naranja Neón
+ * ESTUDIO CREATIVO ID - MAIN SCRIPT (js/main.js)
+ * Versión completa y optimizada para producción y desarrollo local.
+ * Incluye: Control de navegación móvil con bloqueo de scroll, observador de animaciones,
+ * decodificador de texto cinético, consola HUD de telemetría, detector de adblock para Pinterest
+ * y procesador de formulario de contacto.
  */
 
-// Notifica al CSS que JS está activo
+// Notifica inmediatamente al CSS que JavaScript está habilitado
 document.documentElement.classList.add('js-ready');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,59 +19,87 @@ document.addEventListener('DOMContentLoaded', () => {
   setCurrentYear();
   initPinterestDetector();
 
-  // Asegura la visibilidad del Hero a los 300ms
+  // Margen de seguridad: asegura que los elementos del Hero sean visibles
+  // incluso si la carga de red o el IntersectionObserver presentan demora
   setTimeout(() => {
-    document.querySelectorAll('#hero [data-reveal]').forEach(el => el.classList.add('is-revealed'));
-  }, 300);
+    document.querySelectorAll('#hero [data-reveal]').forEach((el) => {
+      el.classList.add('is-revealed');
+    });
+  }, 250);
 });
 
 /**
- * 1. Barra de progreso superior al hacer scroll
+ * 1. Barra de progreso superior en tiempo real según el scroll
  */
 function initScrollProgressBar() {
   const progressBar = document.getElementById('scrollProgress');
   if (!progressBar) return;
 
-  window.addEventListener('scroll', () => {
+  const updateProgress = () => {
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (totalHeight <= 0) return;
+    if (totalHeight <= 0) {
+      progressBar.style.width = '0%';
+      return;
+    }
     const progress = (window.scrollY / totalHeight) * 100;
-    progressBar.style.width = `${progress}%`;
-  });
+    progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  };
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
 }
 
 /**
- * 2. Motor de Animaciones en Scroll [data-reveal]
+ * 2. Motor de Animaciones de Scroll con IntersectionObserver
  */
 function initScrollObserver() {
   const elements = document.querySelectorAll('[data-reveal]');
   if (!elements.length) return;
 
-  elements.forEach(el => {
+  // Revela inmediatamente los elementos que ya están en el viewport al cargar
+  elements.forEach((el) => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) {
+    if (rect.top < window.innerHeight - 30) {
       el.classList.add('is-revealed');
     }
   });
 
+  if (!('IntersectionObserver' in window)) {
+    // Fallback para navegadores antiguos sin soporte de IntersectionObserver
+    elements.forEach((el) => el.classList.add('is-revealed'));
+    return;
+  }
+
+  const observerOptions = {
+    root: null,
+    threshold: 0.08,
+    rootMargin: '0px 0px -20px 0px'
+  };
+
   const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const delay = el.getAttribute('data-delay') || 0;
-        setTimeout(() => {
+        const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+
+        if (delay > 0) {
+          setTimeout(() => {
+            el.classList.add('is-revealed');
+          }, delay);
+        } else {
           el.classList.add('is-revealed');
-        }, parseInt(delay, 10));
+        }
+
         obs.unobserve(el);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+  }, observerOptions);
 
-  elements.forEach(el => observer.observe(el));
+  elements.forEach((el) => observer.observe(el));
 }
 
 /**
- * 3. Barra de Navegación y Menú Móvil
+ * 3. Barra de Navegación y Menú Móvil con Bloqueo de Scroll
  */
 function initNavbar() {
   const navbarWrap = document.querySelector('.navbar-wrapper');
@@ -76,31 +107,51 @@ function initNavbar() {
   const navMenu = document.getElementById('navMenu');
   const navLinks = document.querySelectorAll('.nav-link, .btn-nav-cta');
 
+  // Control de sombra y fondo al deslizar la página
   if (navbarWrap) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
+    const handleNavbarScroll = () => {
+      if (window.scrollY > 30) {
         navbarWrap.classList.add('scrolled');
       } else {
         navbarWrap.classList.remove('scrolled');
       }
-    });
+    };
+
+    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+    handleNavbarScroll();
   }
 
+  // Comportamiento del Drawer móvil
   if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+    const closeMenu = () => {
+      navMenu.classList.remove('active');
+      navToggle.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    };
+
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
     });
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-      });
+    // Cerrar al pulsar cualquier enlace de navegación
+    navLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Cerrar automáticamente si se redimensiona la pantalla a tamaño desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+        closeMenu();
+      }
     });
   }
 }
 
 /**
- * 4. Efecto de Decodificación de Texto en el Titular
+ * 4. Efecto de Decodificación Cinética (Text Scramble) en el Titular
  */
 function initTextScramble() {
   const target = document.getElementById('scrambleTarget');
@@ -148,13 +199,14 @@ function initHudTypewriter() {
     'Conexión Modbus-TCP en puerto 502 establecida',
     'PID de posición calibrado: Error < 0.05%',
     'Auditando segmentación de red OT/IT...',
-    'Telemetría lista para exportar a SCADA'
+    'Telemetría en vivo lista para exportar a SCADA',
+    'Servidor local WebSocket: 0 paquetes perdidos'
   ];
 
   let logIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  const speed = 50;
+  const typingSpeed = 50;
 
   function typeCycle() {
     const current = logs[logIndex];
@@ -180,7 +232,7 @@ function initHudTypewriter() {
       }
     }
 
-    const currentSpeed = isDeleting ? speed / 2 : speed;
+    const currentSpeed = isDeleting ? typingSpeed / 2 : typingSpeed;
     setTimeout(typeCycle, currentSpeed);
   }
 
@@ -189,6 +241,7 @@ function initHudTypewriter() {
 
 /**
  * 6. Manejo del Formulario de Contacto
+ * Registro estructurado para depuración local y feedback visual
  */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -201,12 +254,13 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    // Registro en la consola para desarrollo local
     console.group('🚀 [Estudio Creativo ID] Solicitud Registrada:');
     console.table(data);
     console.log('Timestamp:', new Date().toISOString());
     console.groupEnd();
 
-    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Te responderemos en breve.`;
+    feedback.textContent = `¡Gracias, ${data.name}! Hemos registrado tu solicitud para "${data.service}". Analizaremos los requerimientos técnicos y te responderemos a la brevedad.`;
     feedback.className = 'form-feedback success';
 
     form.reset();
@@ -229,14 +283,15 @@ function setCurrentYear() {
 }
 
 /**
- * 8. Detector de Bloqueo de Pinterest (Fallback)
+ * 8. Detector de Bloqueo de Pinterest (Fallback Inteligente para Adblock / Shields)
  */
 function initPinterestDetector() {
   const containers = document.querySelectorAll('.pinterest-embed-container');
   if (!containers.length) return;
 
+  // Espera 2.2 segundos para verificar si el SDK de Pinterest (pinit.js) renderizó el iframe
   setTimeout(() => {
-    containers.forEach(container => {
+    containers.forEach((container) => {
       const hasRendered = container.querySelector('span[data-pin-do], iframe, .pin-embed');
       const rawLink = container.querySelector('a[data-pin-do]');
       const wasBlocked = rawLink && (!hasRendered || hasRendered.offsetHeight === 0);

@@ -1,6 +1,7 @@
 /* ==========================================================================
    ESTUDIO CREATIVO ID - ESTÉTICA EDITORIAL CYBER OBSIDIANA & NARANJA
-   Optimización Integral de Responsividad (320px hasta 2560px)
+   Archivo: css/style.css
+   Optimización: Rendimiento, fluidez en móviles y fidelidad gráfica
    ========================================================================== */
 
 :root {
@@ -25,7 +26,7 @@
   --border-orange: rgba(255, 62, 24, 0.35);
 
   --font-headline: 'Syne', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -56,16 +57,16 @@ body {
   position: relative;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Bloqueo de scroll cuando el menú móvil está abierto */
 body.menu-open {
   overflow: hidden;
   touch-action: none;
 }
 
-/* Scrollbar personalizado */
+/* Scrollbar Personalizado */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -81,7 +82,7 @@ body.menu-open {
   background: var(--orange-bright);
 }
 
-/* Barra de progreso de lectura */
+/* Barra de Progreso Superior */
 .scroll-progress-bar {
   position: fixed;
   top: 0;
@@ -92,9 +93,10 @@ body.menu-open {
   z-index: 2100;
   box-shadow: 0 0 10px var(--orange-neon);
   pointer-events: none;
+  transition: width 0.08s linear;
 }
 
-/* Pincelada ambiental superior */
+/* Pincelada e Iluminación de Fondo */
 .brush-splash {
   position: absolute;
   top: 0;
@@ -119,7 +121,6 @@ body.menu-open {
   z-index: -1;
 }
 
-/* Contenedor fluido con padding dinámico */
 .container {
   width: 100%;
   max-width: 1240px;
@@ -138,10 +139,18 @@ body.menu-open {
   will-change: opacity, transform;
 }
 
-html.js-ready [data-reveal] { opacity: 0; }
-html.js-ready [data-reveal="fade-up"] { transform: translateY(30px); }
-html.js-ready [data-reveal="fade-down"] { transform: translateY(-20px); }
-html.js-ready [data-reveal="scale-up"] { transform: scale(0.95); }
+html.js-ready [data-reveal] { 
+  opacity: 0; 
+}
+html.js-ready [data-reveal="fade-up"] { 
+  transform: translateY(30px); 
+}
+html.js-ready [data-reveal="fade-down"] { 
+  transform: translateY(-20px); 
+}
+html.js-ready [data-reveal="scale-up"] { 
+  transform: scale(0.95); 
+}
 
 html.js-ready [data-reveal].is-revealed {
   opacity: 1;
@@ -149,7 +158,7 @@ html.js-ready [data-reveal].is-revealed {
 }
 
 /* --------------------------------------------------------------------------
-   Tipografías y Utilidades
+   Tipografías y Sliders Técnicos
    -------------------------------------------------------------------------- */
 .category-slash {
   font-family: var(--font-mono);
@@ -182,7 +191,7 @@ html.js-ready [data-reveal].is-revealed {
 }
 
 /* --------------------------------------------------------------------------
-   Botones Táctiles
+   Botones Táctiles & Micro-interacciones
    -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
@@ -275,6 +284,7 @@ html.js-ready [data-reveal].is-revealed {
   max-width: 1240px;
   margin: 0 auto;
   height: 70px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -343,7 +353,7 @@ html.js-ready [data-reveal].is-revealed {
   box-shadow: 0 0 15px var(--orange-glow);
 }
 
-/* Botón Hamburguesa ergonómico (Mínimo 44x44px de tap target) */
+/* Botón Hamburguesa Móvil (Área de toque táctil: 44x44px) */
 .nav-toggle {
   display: none;
   background: none;
@@ -532,7 +542,7 @@ html.js-ready [data-reveal].is-revealed {
   to { transform: rotate(360deg); }
 }
 
-/* Consola HUD con scroll horizontal seguro */
+/* Consola HUD */
 .cyber-hud-box {
   width: 100%;
   background: var(--bg-carbon);
@@ -601,7 +611,7 @@ html.js-ready [data-reveal].is-revealed {
 @keyframes blink { 50% { opacity: 0; } }
 
 /* --------------------------------------------------------------------------
-   Sección About / Filosofía (Corte Diagonal Protegido)
+   Sección About / Filosofía (Corte Diagonal Adaptativo)
    -------------------------------------------------------------------------- */
 .section-light-slice {
   background-color: var(--bg-white);
@@ -874,7 +884,7 @@ html.js-ready [data-reveal].is-revealed {
 }
 
 /* --------------------------------------------------------------------------
-   Capacidades: Videos Nativos en Repositorio (#ingenieria)
+   Capacidades: Videos en Alta Definición (#ingenieria)
    -------------------------------------------------------------------------- */
 .section-dark-capabilities {
   background-color: var(--bg-obsidian);
@@ -944,7 +954,6 @@ html.js-ready [data-reveal].is-revealed {
   font-size: 0.84rem;
 }
 
-/* Contenedor del reproductor nativo */
 .video-player-container {
   position: relative;
   width: 100%;
@@ -973,7 +982,6 @@ html.js-ready [data-reveal].is-revealed {
   filter: contrast(1.1) brightness(1.02);
 }
 
-/* Efecto de marco técnico */
 .video-scanline {
   position: absolute;
   inset: 0;
@@ -1084,7 +1092,7 @@ html.js-ready [data-reveal].is-revealed {
   color: var(--text-dim);
 }
 
-/* 16px obligatorio en inputs para evitar zoom automático en iOS/Android */
+/* 16px exactos en inputs previene el zoom forzado en iOS/Android */
 .form-field input,
 .form-field select,
 .form-field textarea {
@@ -1203,10 +1211,10 @@ html.js-ready [data-reveal].is-revealed {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES - RESPONSIVIDAD AVANZADA
+   Media Queries & Responsividad Fluida
    ========================================================================== */
 
-/* Tablets en horizontal y Laptops pequeñas (993px - 1100px) */
+/* Pantallas Medianas / Laptops (993px - 1100px) */
 @media (max-width: 1100px) {
   .hero-main-layout {
     gap: 35px;
@@ -1221,7 +1229,7 @@ html.js-ready [data-reveal].is-revealed {
   }
 }
 
-/* Tablets en vertical (769px - 992px) */
+/* Tablets en Orientación Vertical (769px - 992px) */
 @media (max-width: 992px) {
   .hero-main-layout {
     grid-template-columns: 1fr;
@@ -1251,7 +1259,7 @@ html.js-ready [data-reveal].is-revealed {
   }
 }
 
-/* Móviles y Tablets compactas (<= 768px) */
+/* Dispositivos Móviles y Tablets Pequeñas (<= 768px) */
 @media (max-width: 768px) {
   .navbar {
     height: 64px;
@@ -1261,7 +1269,6 @@ html.js-ready [data-reveal].is-revealed {
     display: flex;
   }
 
-  /* Menú desplegable tipo Drawer móvil */
   .nav-menu {
     position: fixed;
     top: 64px;
@@ -1313,7 +1320,6 @@ html.js-ready [data-reveal].is-revealed {
     margin-top: 10px;
   }
 
-  /* Corte diagonal adaptado a píxeles seguros */
   .section-light-slice {
     clip-path: polygon(0 20px, 100% 0, 100% calc(100% - 20px), 0 100%);
     padding: 60px 0;
@@ -1349,7 +1355,7 @@ html.js-ready [data-reveal].is-revealed {
   }
 }
 
-/* Pantallas móviles pequeñas y compactas (<= 480px) */
+/* Móviles Estrechos (<= 480px) */
 @media (max-width: 480px) {
   .hero-cta-group {
     flex-direction: column;
@@ -1383,10 +1389,5 @@ html.js-ready [data-reveal].is-revealed {
   .contact-banner-side,
   .contact-form-side {
     padding: 28px 18px;
-  }
-
-  .pinterest-embed-container {
-    min-height: 320px;
-    padding: 4px;
   }
 }
